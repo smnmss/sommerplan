@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Sommerplan 25">
-  <title>Sommerplan 2025</title>
+  <meta name="apple-mobile-web-app-title" content="Trainingsplan">
+  <title>Trainingsplan</title>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -319,685 +319,335 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
 </script>
   <script>
 const useState = React.useState;
-const phases = [{
-  id: "phase1",
-  label: "Phase 1",
-  subtitle: "Defizit + Grundlage",
-  weeks: "09. Juni – 22. Juni",
-  duration: "2 Wochen",
-  dateFrom: "04.06.",
-  dateTo: "22.06.",
-  focus: ["Kaloriendefizit ~300–400 kcal", "Fettverbrennung starten", "Kraft-Grundlage mit deinen Gewichten", "Adduktoren schonen & stärken"],
-  kcal: "~2.100",
-  cardio: "2× LISS 35–45 Min. (Fahrrad, Schwimmen, Ellipsentrainer)",
-  accentColor: "#f97316"
-}, {
-  id: "phase2",
-  label: "Phase 2",
-  subtitle: "Definieren + Kraft",
-  weeks: "23. Juni – 6. Juli",
-  duration: "2 Wochen",
-  dateFrom: "23.06.",
-  dateTo: "06.07.",
-  focus: ["Leichtes Defizit ~200 kcal", "Gewichte steigern – Progressive Overload", "Ausdauer für Vorbereitungsstart 7. Juli!", "Sichtbare Oberkörperdefinition"],
-  kcal: "~2.250",
-  cardio: "2× HIIT 20 Min. + 1× LISS 40 Min.",
-  accentColor: "#eab308"
-}, {
-  id: "phase3",
-  label: "Phase 3",
-  subtitle: "Peak – Standesamt",
-  weeks: "7. Juli – 14. Juli",
-  duration: "1 Woche",
-  dateFrom: "07.07.",
-  dateTo: "17.07.",
-  focus: ["Mini-Defizit ~100 kcal", "Pump-Training für maximale Optik", "Wasserretention reduzieren", "Letzter Trainingstag: 14. Juli (Testspiel)"],
-  kcal: "~2.300",
-  cardio: "1× HIIT – Regeneration Priorität",
-  accentColor: "#a78bfa"
-}, {
-  id: "phase4",
-  label: "Phase 4",
-  subtitle: "Ligabetrieb – Erhalten",
-  weeks: "ab 10. August",
-  duration: "Laufend",
-  dateFrom: "01.08.",
-  dateTo: "99.99.",
-  focus: ["Erhaltungskalorien – Gewicht & Form halten", "Muskeln erhalten, Leistung im Spiel priorisieren", "2× Gym/Woche (Mo+Mi) für Kraft", "Genug Regeneration zwischen Spielen"],
-  kcal: "~2.400",
-  cardio: "Fußball deckt Ausdauer – Gym Mo/Mi für Kraft",
-  accentColor: "#ec4899"
-}];
-const timeline = [{
-  date: "03.06.",
-  day: "Mi",
-  event: "Letzter Gym-Tag vor Fahrt",
-  color: "#8b949e",
-  type: "gym",
-  phase: "phase1"
-}, {
-  date: "04.–07.06.",
-  day: "Do–So",
-  event: "Mannschaftsfahrt 🍺",
-  color: "#eab308",
-  type: "special",
-  phase: "phase1"
-}, {
-  date: "09.06.",
+const AC = "#ec4899"; // Liga pink accent
+
+const wochenstruktur = [{
   day: "Mo",
-  event: "Wiedereinstieg – Gym Push (-10% Gewicht)",
-  color: "#f97316",
-  type: "gym",
-  phase: "phase1"
+  type: "GYM – Tag A (13–14 Uhr / Homeoffice)",
+  color: "#4ade80"
 }, {
-  date: "09.–22.06.",
-  day: "",
-  event: "Mo/Mi Gym · Di/Fr LISS",
-  color: "#f97316",
-  type: "phase",
-  phase: "phase1"
-}, {
-  date: "23.06.",
   day: "Di",
-  event: "🏃 Lauf 1: 6km Dauerlauf",
-  color: "#38bdf8",
-  type: "cardio",
-  phase: "phase2"
+  type: "Fußball-Training 19:00–20:30",
+  color: "#ec4899"
 }, {
-  date: "23.06.–06.07.",
-  day: "",
-  event: "Mo/Mi Gym · 🏃 Lauf-Programm Trainer",
-  color: "#eab308",
-  type: "phase",
-  phase: "phase2"
-}, {
-  date: "26.06.",
-  day: "Fr",
-  event: "🏃 Lauf 2: 3×3000m Tempo ⚠️",
-  color: "#38bdf8",
-  type: "cardio",
-  phase: "phase2"
-}, {
-  date: "30.06.",
-  day: "Di",
-  event: "🏃 Lauf 3: 7×1000m Tempo ⚠️",
-  color: "#38bdf8",
-  type: "cardio",
-  phase: "phase2"
-}, {
-  date: "03.07.",
-  day: "Fr",
-  event: "Sommerabendturnier 17:00 🍺 + 🏃 Lauf 4 optional davor",
-  color: "#eab308",
-  type: "special",
-  phase: "phase2"
-}, {
-  date: "05.07.",
-  day: "So",
-  event: "🏃 Lauf 4: 4km Dauerlauf (Option B)",
-  color: "#38bdf8",
-  type: "cardio",
-  phase: "phase2"
-}, {
-  date: "06.07.",
-  day: "Mo",
-  event: "Gym Push (vorgezogen wegen Di Trainingsauftakt)",
-  color: "#4ade80",
-  type: "gym",
-  phase: "phase2"
-}, {
-  date: "07.07.",
-  day: "Di",
-  event: "Trainingsauftakt 19:00 🏟",
-  color: "#4ade80",
-  type: "fussball",
-  phase: "phase3"
-}, {
-  date: "08.07.",
   day: "Mi",
-  event: "Gym Pull 13:00",
-  color: "#38bdf8",
-  type: "gym",
-  phase: "phase3"
+  type: "GYM – Tag B (13–14 Uhr / Homeoffice)",
+  color: "#38bdf8"
 }, {
-  date: "09.07.",
   day: "Do",
-  event: "Training 19:00",
-  color: "#4ade80",
-  type: "fussball",
-  phase: "phase3"
+  type: "Fußball-Training 19:00–20:30",
+  color: "#ec4899"
 }, {
-  date: "10.07.",
   day: "Fr",
-  event: "Training 18:30",
-  color: "#4ade80",
-  type: "fussball",
-  phase: "phase3"
+  type: "Training 18:30 (1.+3. Fr/Monat) / sonst frei",
+  color: "#8b949e"
 }, {
-  date: "11.07.",
   day: "Sa",
-  event: "Training 09:30",
-  color: "#4ade80",
-  type: "fussball",
-  phase: "phase3"
+  type: "Spielvortag / Aktiv",
+  color: "#8b949e"
 }, {
-  date: "13.07.",
-  day: "Mo",
-  event: "Training 19:00 + Gym Push 13:00 ⚡",
-  color: "#f97316",
-  type: "gym",
-  phase: "phase3"
-}, {
-  date: "14.07.",
-  day: "Di",
-  event: "🛑 Letzter Gym-Tag Push 13:00 + Testspiel Emsdetten 19:00",
-  color: "#f87171",
-  type: "gym",
-  phase: "phase3"
-}, {
-  date: "15.07.",
-  day: "Mi",
-  event: "✨ Aufbau-Tag – Carb-Loading, kein Training",
-  color: "#38bdf8",
-  type: "aufbau",
-  phase: "phase3"
-}, {
-  date: "16.07.",
-  day: "Do",
-  event: "✨ Aufbau-Tag – Carb-Loading, kein Training",
-  color: "#38bdf8",
-  type: "aufbau",
-  phase: "phase3"
-}, {
-  date: "17.07.",
-  day: "Fr",
-  event: "💍 STANDESAMT RHEINE",
-  color: "#4ade80",
-  type: "wedding",
-  phase: "phase3"
-}, {
-  date: "01.08.",
-  day: "Fr",
-  event: "🇮🇹 HOCHZEIT ITALIEN",
-  color: "#a78bfa",
-  type: "wedding",
-  phase: "phase4"
-}, {
-  date: "ab 10.08.",
-  day: "",
-  event: "📋 Ligabetrieb startet",
-  color: "#ec4899",
-  type: "phase",
-  phase: "phase4"
-}, {
-  date: "09.08.",
   day: "So",
-  event: "1. Spieltag Bezirksliga 15:00 🏆",
-  color: "#ec4899",
-  type: "fussball",
-  phase: "phase4"
-}, {
-  date: "Liga",
-  day: "",
-  event: "Di+Do 19:00 Training · 1.+3. Fr 18:30 · Gym Mo+Mi",
-  color: "#ec4899",
-  type: "phase",
-  phase: "phase4"
+  type: "SPIELTAG 15:00 🏆",
+  color: "#ec4899"
 }];
-const gymDays = {
-  montag: {
-    label: "Montag – PUSH",
-    subtitle: "Schultern · Brust · Trizeps · Core",
-    accentColor: "#4ade80",
-    phases: {
-      phase1: {
-        note: "Fortgeschrittener Wiedereinsteiger. Wo. 1–2 = Einstieg, Wo. 3–4 = erste Steigerung. Pausen 90 Sek.",
-        exercises: [{
-          name: "Schulterdrücken (Maschine)",
+
+// ── GYM: zwei Splits (Push/Pull + Oberkörper-Ganzkörper), je Voll + Kurz ──
+const gymSplits = {
+  pushpull: {
+    label: "Push / Pull",
+    hinweis: "Klassisch: Mo Push (Drücken), Mi Pull (Ziehen). Jeder Muskel 1×/Woche.",
+    tage: {
+      a: {
+        label: "Tag A – PUSH",
+        subtitle: "Brust · Schultern · Trizeps",
+        accentColor: "#4ade80",
+        voll: [{
+          name: "Schulterdrücken (Maschine, Platten)",
           sets: "4 Sätze",
           weeks: [{
-            label: "Wo. 1–2",
-            rows: ["Satz 1: 60kg × 15", "Satz 2: 60kg × 15", "Satz 3: 80kg × 12", "Satz 4: 80kg × 12"]
-          }, {
-            label: "Wo. 3–4",
-            rows: ["Satz 1: 65kg × 12", "Satz 2: 65kg × 12", "Satz 3: 82,5kg × 10", "Satz 4: 82,5kg × 10"]
+            label: "Aktuell",
+            rows: ["Satz 1: 30kg × 8", "Satz 2: 20kg × 12", "Satz 3: 20kg × 10", "Satz 4: 20kg × 10"]
           }],
-          note: "Wenn 4×12 sauber → nächste Phase steigern"
+          note: "Nach Pause wieder aufbauen – sauber vor schwer"
         }, {
-          name: "Brustpresse (Maschine)",
-          sets: "4 Sätze",
-          weeks: [{
-            label: "Wo. 1–2",
-            rows: ["Satz 1: 43kg × 10", "Satz 2: 43kg × 10", "Satz 3: 43kg × 10", "Satz 4: 50kg × 6"]
-          }, {
-            label: "Wo. 3–4",
-            rows: ["Satz 1: 43kg × 12", "Satz 2: 46kg × 10", "Satz 3: 46kg × 10", "Satz 4: 50kg × 8"]
-          }],
-          note: "ODER Smith Machine Bankdrücken (Alternative)"
+          name: "Brustpresse (Maschine, Platten)",
+          sets: "4×8-10",
+          weeks: [],
+          note: "Kontrolliert senken, explosiv drücken"
         }, {
-          name: "Smith Machine Bankdrücken (Alternative)",
-          sets: "4 Sätze",
-          weeks: [{
-            label: "Wo. 1–2",
-            rows: ["Satz 1: 25kg × 12", "Satz 2: 30kg × 12", "Satz 3: 30kg × 12", "Satz 4: 35kg × 10"]
-          }, {
-            label: "Wo. 3–4",
-            rows: ["Satz 1: 30kg × 12", "Satz 2: 32,5kg × 10", "Satz 3: 32,5kg × 10", "Satz 4: 37,5kg × 8"]
-          }],
-          note: "Nur EINE Brustgrundübung pro Einheit"
-        }, {
-          name: "Schrägbank Smith Machine",
-          sets: "4 Sätze",
-          weeks: [{
-            label: "Wo. 1–2",
-            rows: ["Satz 1: 25kg × 12", "Satz 2: 30kg × 10", "Satz 3: 30kg × 10", "Satz 4: 25kg × 12"]
-          }, {
-            label: "Wo. 3–4",
-            rows: ["Satz 1: 27,5kg × 12", "Satz 2: 32,5kg × 10", "Satz 3: 32,5kg × 10", "Satz 4: 27,5kg × 12"]
-          }],
-          note: "Saubere Technik Priorität"
+          name: "Bankdrücken (Maschine, Platten)",
+          sets: "3×10",
+          weeks: [],
+          note: "Alternative/Ergänzung zur Brustpresse"
         }, {
           name: "Butterfly (Maschine)",
-          sets: "4 Sätze",
-          weeks: [{
-            label: "Wo. 1–2",
-            rows: ["Satz 1: 43kg × 12", "Satz 2: 43kg × 12", "Satz 3: 43kg × 12", "Satz 4: 50kg × 8"]
-          }, {
-            label: "Wo. 3–4",
-            rows: ["Satz 1: 46kg × 12", "Satz 2: 46kg × 12", "Satz 3: 46kg × 12", "Satz 4: 52kg × 8"]
-          }],
+          sets: "3×12",
+          weeks: [],
           note: "Finisher – volle Kontraktion halten"
         }, {
-          name: "Trizeps Pushdown (Kabel)",
-          sets: "3 Sätze",
-          weeks: [{
-            label: "Wo. 1–2",
-            rows: ["Satz 1: leicht × 15", "Satz 2: mittel × 12", "Satz 3: mittel × 12"]
-          }, {
-            label: "Wo. 3–4",
-            rows: ["Satz 1: mittel × 12", "Satz 2: mittel+5 × 10", "Satz 3: mittel+5 × 10"]
-          }],
-          note: ""
-        }, {
-          name: "Plank",
-          sets: "3×45s",
+          name: "Seitheben (Kabel/KH)",
+          sets: "3×15",
           weeks: [],
-          note: ""
+          note: "Seitliche Schulter"
         }, {
-          name: "Leg Raises hängend",
-          sets: "3×12",
+          name: "Dips (statt Trizeps-Pushdown)",
+          sets: "3×8-10",
           weeks: [],
-          note: "Unterbauch"
+          note: "Körpergewicht oder Maschine – Brust & Trizeps"
         }, {
-          name: "Pallof Press",
-          sets: "3×12 je Seite",
+          name: "Core: Plank + Leg Raises",
+          sets: "3× je",
           weeks: [],
-          note: "Anti-Rotation"
-        }]
-      },
-      phase2: {
-        note: "Intensität steigern. Kürzere Pausen (60–75 Sek.). Progressive Overload.",
-        exercises: [{
+          note: "Rumpf zum Abschluss"
+        }],
+        kurz: [{
           name: "Schulterdrücken (Maschine)",
           sets: "4 Sätze",
           weeks: [{
-            label: "Phase 2",
-            rows: ["Satz 1: 70kg × 10", "Satz 2: 70kg × 10", "Satz 3: 85kg × 8", "Satz 4: 85kg × 8"]
+            label: "Aktuell",
+            rows: ["Satz 1: 30kg × 8", "Satz 2: 20kg × 12", "Satz 3: 20kg × 10", "Satz 4: 20kg × 10"]
           }],
           note: ""
         }, {
           name: "Brustpresse (Maschine)",
-          sets: "4 Sätze",
-          weeks: [{
-            label: "Phase 2",
-            rows: ["Satz 1: 46kg × 12", "Satz 2: 50kg × 10", "Satz 3: 50kg × 10", "Satz 4: 54kg × 6"]
-          }],
-          note: ""
-        }, {
-          name: "Schrägbank Smith Machine",
-          sets: "4 Sätze",
-          weeks: [{
-            label: "Phase 2",
-            rows: ["Satz 1: 32,5kg × 10", "Satz 2: 35kg × 8", "Satz 3: 35kg × 8", "Satz 4: 30kg × 12"]
-          }],
-          note: ""
-        }, {
-          name: "Butterfly (Maschine)",
-          sets: "4 Sätze",
-          weeks: [{
-            label: "Phase 2",
-            rows: ["Satz 1: 50kg × 12", "Satz 2: 50kg × 10", "Satz 3: 54kg × 8", "Satz 4: 54kg × 8"]
-          }],
-          note: ""
-        }, {
-          name: "Seitheben + Frontlift Supersatz",
-          sets: "3×12+10",
+          sets: "3×8-10",
           weeks: [],
           note: ""
         }, {
-          name: "Trizeps Overhead KH",
-          sets: "3×15",
+          name: "Dips",
+          sets: "3×8-10",
           weeks: [],
-          note: ""
-        }, {
-          name: "Crunch Maschine",
-          sets: "3×15",
-          weeks: [],
-          note: ""
-        }, {
-          name: "Leg Raises hängend",
-          sets: "3×12",
-          weeks: [],
-          note: "Unterbauch"
-        }]
-      },
-      phase3: {
-        note: "Pump-Range für maximale Optik. Pausen 45–60 Sek. Letzter Tag: 14. Juli.",
-        exercises: [{
-          name: "Schulterdrücken (Maschine)",
-          sets: "4 Sätze",
-          weeks: [{
-            label: "Phase 3",
-            rows: ["Satz 1: 72,5kg × 10", "Satz 2: 72,5kg × 10", "Satz 3: 87,5kg × 8", "Satz 4: 87,5kg × 8"]
-          }],
-          note: ""
-        }, {
-          name: "Brustpresse (Maschine)",
-          sets: "4 Sätze",
-          weeks: [{
-            label: "Phase 3",
-            rows: ["Satz 1: 50kg × 12", "Satz 2: 54kg × 10", "Satz 3: 54kg × 10", "Satz 4: 57kg × 6"]
-          }],
-          note: ""
-        }, {
-          name: "Butterfly + Schrägbank Supersatz",
-          sets: "4×12+10",
-          weeks: [],
-          note: "Pump-Supersatz"
-        }, {
-          name: "Schulterdrücken + Seitheben Supersatz",
-          sets: "4×10+12",
-          weeks: [],
-          note: ""
-        }, {
-          name: "Trizeps Overhead KH",
-          sets: "3×15",
-          weeks: [],
-          note: ""
-        }, {
-          name: "Reverse Crunch",
-          sets: "4×15",
-          weeks: [],
-          note: "Unterbauch"
-        }, {
-          name: "Leg Raises hängend",
-          sets: "4×12",
-          weeks: [],
-          note: ""
-        }, {
-          name: "Ab Wheel Rollout",
-          sets: "3×8",
-          weeks: [],
-          note: ""
-        }]
-      },
-      phase4: {
-        note: "Ligabetrieb – Erhaltung. Gym Mo+Mi, Fußball Di/Do/Fr. Gewicht halten, nicht übertreiben. Pausen 75–90 Sek.",
-        exercises: [{
-          name: "Schulterdrücken (Maschine)",
-          sets: "4 Sätze",
-          weeks: [{
-            label: "Erhaltung",
-            rows: ["Satz 1: 70kg × 10", "Satz 2: 72,5kg × 10", "Satz 3: 85kg × 8", "Satz 4: 85kg × 8"]
-          }],
-          note: "Niveau halten"
-        }, {
-          name: "Brustpresse (Maschine)",
-          sets: "4 Sätze",
-          weeks: [{
-            label: "Erhaltung",
-            rows: ["Satz 1: 50kg × 10", "Satz 2: 50kg × 10", "Satz 3: 54kg × 8", "Satz 4: 54kg × 8"]
-          }],
-          note: ""
-        }, {
-          name: "Schrägbank Smith Machine",
-          sets: "3 Sätze",
-          weeks: [{
-            label: "Erhaltung",
-            rows: ["Satz 1: 32,5kg × 10", "Satz 2: 35kg × 8", "Satz 3: 32,5kg × 10"]
-          }],
-          note: ""
-        }, {
-          name: "Butterfly (Maschine)",
-          sets: "3×12",
-          weeks: [],
-          note: "Finisher"
+          note: "Brust & Trizeps in einem"
         }, {
           name: "Seitheben (Kabel)",
           sets: "3×15",
           weeks: [],
           note: ""
         }, {
-          name: "Trizeps Pushdown",
+          name: "Core: Leg Raises",
           sets: "3×12",
+          weeks: [],
+          note: "Kurzer Rumpf-Abschluss"
+        }]
+      },
+      b: {
+        label: "Tag B – PULL",
+        subtitle: "Rücken · Bizeps",
+        accentColor: "#38bdf8",
+        voll: [{
+          name: "Latzug (Maschine, Platten)",
+          sets: "4 Sätze",
+          weeks: [{
+            label: "Griff-Optionen",
+            rows: ["Breiter/abgew. Griff → Rückenbreite", "Enger/V-Griff → Dicke, mittlerer Rücken", "Beide Griffe möglich – abwechseln!"]
+          }],
+          note: "⚠️ NICHT mit Schulterdrücken verwechseln! Eigene Maschine."
+        }, {
+          name: "Rudern (Maschine, Platten)",
+          sets: "4×10-12",
+          weeks: [],
+          note: "Neu umgestellt auf Maschine – enger Griff, Ellbogen zur Hüfte"
+        }, {
+          name: "Reverse Fliegende (Maschine)",
+          sets: "3×15",
+          weeks: [],
+          note: "Hintere Schulter · Optional: Facepull am Kabel"
+        }, {
+          name: "Bizeps Curls (Kabel, SZ-Stange)",
+          sets: "3×10-12",
+          weeks: [],
+          note: "Schwerer, mehr Kraft"
+        }, {
+          name: "Bizeps Curls (Kabel, Seil)",
+          sets: "3×12-15",
+          weeks: [],
+          note: "Oben supinieren – Kontraktion. Optional zusätzlich"
+        }, {
+          name: "Core: Russian Twists + Dead Bug",
+          sets: "3× je",
+          weeks: [],
+          note: "Rotationsstabilität"
+        }],
+        kurz: [{
+          name: "Latzug (Maschine)",
+          sets: "4×10",
+          weeks: [{
+            label: "Griff",
+            rows: ["Breit → Breite", "Eng/V → Dicke"]
+          }],
+          note: "⚠️ Eigene Maschine, nicht Schulterdrücken"
+        }, {
+          name: "Rudern (Maschine)",
+          sets: "4×10-12",
           weeks: [],
           note: ""
         }, {
-          name: "Plank + Leg Raises",
-          sets: "3×je",
+          name: "Reverse Fliegende (Maschine)",
+          sets: "3×15",
           weeks: [],
-          note: "Core kurz halten"
+          note: "Optional Facepull"
+        }, {
+          name: "Bizeps Curls (Kabel)",
+          sets: "3×12",
+          weeks: [],
+          note: "SZ-Stange oder Seil"
+        }, {
+          name: "Core: Russian Twists",
+          sets: "3×20",
+          weeks: [],
+          note: ""
         }]
       }
     }
   },
-  mittwoch: {
-    label: "Mittwoch – PULL",
-    subtitle: "Rücken · Bizeps · Core",
-    accentColor: "#38bdf8",
-    phases: {
-      phase1: {
-        note: "Rücken aufbauen – wichtig für Haltung & Fußball. Pausen 90 Sek.",
-        exercises: [{
-          name: "Rudern am Kabel sitzend",
-          sets: "4 Sätze",
-          weeks: [{
-            label: "Wo. 1–2",
-            rows: ["Satz 1: 45kg × 15", "Satz 2: 45kg × 15", "Satz 3: 45kg × 12", "Satz 4: 52kg × 8"]
-          }, {
-            label: "Wo. 3–4",
-            rows: ["Satz 1: 45kg × 15", "Satz 2: 48kg × 12", "Satz 3: 52kg × 10", "Satz 4: 52kg × 10"]
-          }],
-          note: "Enger Griff, Ellbogen zur Hüfte"
+  oberkoerper: {
+    label: "2× Oberkörper",
+    hinweis: "Effektiver bei 2×/Woche: Beide Tage Drücken + Ziehen gemischt → jeder Muskel 2×/Woche. Beine/Rumpf über Fußball.",
+    tage: {
+      a: {
+        label: "Tag A – Oberkörper (Fokus Brust/Schulter)",
+        subtitle: "Drücken betont + Ziehen",
+        accentColor: "#4ade80",
+        voll: [{
+          name: "Brustpresse (Maschine, Platten)",
+          sets: "4×8-10",
+          weeks: [],
+          note: "Hauptübung Drücken"
         }, {
-          name: "Latzug (breite Stange mit abgew. Griff)",
-          sets: "4 Sätze",
+          name: "Latzug (Maschine, Platten)",
+          sets: "4×10",
           weeks: [{
-            label: "Wo. 1–2",
-            rows: ["Satz 1: 45kg × 15", "Satz 2: 45kg × 15", "Satz 3: 45kg × 12", "Satz 4: 52kg × 8"]
-          }, {
-            label: "Wo. 3–4",
-            rows: ["Satz 1: 45kg × 15", "Satz 2: 52kg × 12", "Satz 3: 52kg × 10", "Satz 4: 52kg × 10"]
+            label: "Griff",
+            rows: ["Breit → Breite", "Eng/V → Dicke"]
           }],
-          note: "Breite abgewinkelte Stange – Rückenbreite aufbauen"
+          note: "Ziehen – ⚠️ eigene Maschine!"
         }, {
-          name: "Facepull (Kabel)",
+          name: "Schulterdrücken (Maschine)",
           sets: "3 Sätze",
           weeks: [{
-            label: "Wo. 1–2",
-            rows: ["Satz 1: leicht × 15", "Satz 2: leicht × 15", "Satz 3: mittel × 12"]
-          }, {
-            label: "Wo. 3–4",
-            rows: ["Satz 1: mittel × 12", "Satz 2: mittel × 12", "Satz 3: mittel+5 × 10"]
+            label: "Aktuell",
+            rows: ["30kg × 8", "20kg × 12", "20kg × 10"]
           }],
-          note: "Hintere Schulter & Rotatorenmanschette. Optional: Reverse Fliegende Maschine (falls Kabel belegt) – 15–25kg"
+          note: "Nach Pause aufbauen"
+        }, {
+          name: "Rudern (Maschine)",
+          sets: "3×12",
+          weeks: [],
+          note: "Ziehen horizontal"
+        }, {
+          name: "Dips",
+          sets: "3×8-10",
+          weeks: [],
+          note: "Brust & Trizeps"
         }, {
           name: "Bizeps Curls (Kabel)",
-          sets: "3 Sätze",
-          weeks: [{
-            label: "Wo. 1–2",
-            rows: ["Satz 1: 15kg × 12", "Satz 2: 15kg × 12", "Satz 3: 20kg × 10"]
-          }, {
-            label: "Wo. 3–4",
-            rows: ["Satz 1: 17,5kg × 12", "Satz 2: 20kg × 10", "Satz 3: 20kg × 10"]
-          }],
-          note: ""
-        }, {
-          name: "Hammer Curls (KH)",
-          sets: "3 Sätze",
-          weeks: [{
-            label: "Wo. 1–2",
-            rows: ["Satz 1: 12,5kg × 12", "Satz 2: 12,5kg × 12", "Satz 3: 15kg × 10"]
-          }, {
-            label: "Wo. 3–4",
-            rows: ["Satz 1: 12,5kg × 12", "Satz 2: 15kg × 10", "Satz 3: 15kg × 10"]
-          }],
-          note: ""
-        }, {
-          name: "Abduktoren-Maschine",
-          sets: "3×15",
+          sets: "3×12",
           weeks: [],
-          note: "⚠️ NUR Abduktoren – NICHT Adduktoren-Maschine!"
+          note: "SZ oder Seil"
         }, {
-          name: "Russian Twists mit Gewicht",
-          sets: "3×20",
+          name: "Core",
+          sets: "3× je",
+          weeks: [],
+          note: "Plank, Leg Raises"
+        }],
+        kurz: [{
+          name: "Brustpresse (Maschine)",
+          sets: "4×8-10",
           weeks: [],
           note: ""
         }, {
-          name: "Dead Bug",
-          sets: "3×10 je Seite",
+          name: "Latzug (Maschine)",
+          sets: "4×10",
           weeks: [],
-          note: "Rumpfstabilität"
-        }]
-      },
-      phase2: {
-        note: "Volumen steigern. Klimmzüge einführen. Pausen 75 Sek.",
-        exercises: [{
-          name: "Rudern am Kabel sitzend",
-          sets: "4 Sätze",
-          weeks: [{
-            label: "Phase 2",
-            rows: ["Satz 1: 52kg × 12", "Satz 2: 55kg × 10", "Satz 3: 55kg × 10", "Satz 4: 59kg × 8"]
-          }],
-          note: ""
+          note: "⚠️ eigene Maschine"
         }, {
-          name: "Latzug / Klimmzüge",
-          sets: "4 Sätze",
-          weeks: [{
-            label: "Phase 2",
-            rows: ["Satz 1: 52kg × 12", "Satz 2: 52kg × 10", "Satz 3: 59kg × 8", "Satz 4: 59kg × 8"]
-          }],
-          note: "Untergriff oder breite abgew. Stange"
-        }, {
-          name: "Facepull (Kabel)",
-          sets: "3 Sätze",
-          weeks: [{
-            label: "Phase 2",
-            rows: ["Satz 1: mittel × 15", "Satz 2: mittel × 12", "Satz 3: mittel+5 × 10"]
-          }],
-          note: "Optional: Reverse Fliegende Maschine (25–30kg) falls Kabel belegt"
-        }, {
-          name: "Bizeps + Hammer Curl Supersatz",
-          sets: "3×12+10",
+          name: "Schulterdrücken (Maschine)",
+          sets: "3×8-10",
           weeks: [],
           note: ""
         }, {
-          name: "Hüftheben",
-          sets: "3×20",
-          weeks: [],
-          note: "⚠️ Füße eng – keine weite Abduktion!"
-        }, {
-          name: "Leg Raises liegend",
-          sets: "3×15",
+          name: "Dips",
+          sets: "3×8-10",
           weeks: [],
           note: ""
         }, {
-          name: "Russian Twists",
-          sets: "3×20",
+          name: "Core: Leg Raises",
+          sets: "3×12",
           weeks: [],
           note: ""
         }]
       },
-      phase3: {
-        note: "Maximales Volumen für Optik. Pausen 45–60 Sek.",
-        exercises: [{
-          name: "Rudern am Kabel sitzend",
+      b: {
+        label: "Tag B – Oberkörper (Fokus Rücken)",
+        subtitle: "Ziehen betont + Drücken",
+        accentColor: "#38bdf8",
+        voll: [{
+          name: "Rudern (Maschine, Platten)",
+          sets: "4×10-12",
+          weeks: [],
+          note: "Hauptübung Ziehen"
+        }, {
+          name: "Schulterdrücken (Maschine)",
           sets: "4 Sätze",
           weeks: [{
-            label: "Phase 3",
-            rows: ["Satz 1: 55kg × 10", "Satz 2: 59kg × 10", "Satz 3: 59kg × 8", "Satz 4: 59kg × 8"]
+            label: "Aktuell",
+            rows: ["30kg × 8", "20kg × 12", "20kg × 10", "20kg × 10"]
           }],
-          note: ""
+          note: "Hauptübung Drücken heute"
         }, {
-          name: "Klimmzüge",
-          sets: "4×max",
+          name: "Latzug (Maschine)",
+          sets: "3×10",
+          weeks: [{
+            label: "Griff",
+            rows: ["Breit / eng abwechseln"]
+          }],
+          note: "⚠️ eigene Maschine"
+        }, {
+          name: "Brustpresse (Maschine)",
+          sets: "3×10",
           weeks: [],
-          note: "Gewichtet falls möglich"
+          note: "Drücken sekundär"
         }, {
-          name: "Latzug eng + weit Supersatz",
-          sets: "3×10+10",
-          weeks: [],
-          note: ""
-        }, {
-          name: "Bizeps 21er",
-          sets: "3×21",
-          weeks: [],
-          note: "7 unten / 7 oben / 7 voll"
-        }, {
-          name: "Facepull (Kabel)",
+          name: "Reverse Fliegende + Facepull",
           sets: "3×15",
           weeks: [],
-          note: "Optional: Reverse Fliegende Maschine falls Kabel belegt"
+          note: "Hintere Schulter"
         }, {
-          name: "Dragon Flag Negativ",
-          sets: "3×5",
+          name: "Bizeps Curls (Kabel)",
+          sets: "3×12",
           weeks: [],
-          note: "Langsam ablassen"
+          note: ""
         }, {
-          name: "Russian Twists",
+          name: "Core",
+          sets: "3× je",
+          weeks: [],
+          note: "Russian Twists, Dead Bug"
+        }],
+        kurz: [{
+          name: "Rudern (Maschine)",
+          sets: "4×10-12",
+          weeks: [],
+          note: ""
+        }, {
+          name: "Schulterdrücken (Maschine)",
+          sets: "3×8-10",
+          weeks: [],
+          note: ""
+        }, {
+          name: "Latzug (Maschine)",
+          sets: "3×10",
+          weeks: [],
+          note: "⚠️ eigene Maschine"
+        }, {
+          name: "Reverse Fliegende",
+          sets: "3×15",
+          weeks: [],
+          note: "Optional Facepull"
+        }, {
+          name: "Core: Russian Twists",
           sets: "3×20",
           weeks: [],
           note: ""
-        }]
-      },
-      phase4: {
-        note: "Ligabetrieb – Erhaltung. Rücken & Bizeps halten. Pausen 75–90 Sek.",
-        exercises: [{
-          name: "Rudern am Kabel sitzend",
-          sets: "4 Sätze",
-          weeks: [{
-            label: "Erhaltung",
-            rows: ["Satz 1: 52kg × 12", "Satz 2: 55kg × 10", "Satz 3: 59kg × 8", "Satz 4: 59kg × 8"]
-          }],
-          note: "Niveau halten"
-        }, {
-          name: "Latzug / Klimmzüge",
-          sets: "4 Sätze",
-          weeks: [{
-            label: "Erhaltung",
-            rows: ["Satz 1: 52kg × 12", "Satz 2: 52kg × 10", "Satz 3: 59kg × 8", "Satz 4: 59kg × 8"]
-          }],
-          note: "Breite abgew. Stange"
-        }, {
-          name: "Facepull (Kabel)",
-          sets: "3×15",
-          weeks: [],
-          note: "Optional: Reverse Fliegende Maschine"
-        }, {
-          name: "Bizeps + Hammer Curl Supersatz",
-          sets: "3×12+10",
-          weeks: [],
-          note: ""
-        }, {
-          name: "Russian Twists",
-          sets: "3×20",
-          weeks: [],
-          note: ""
-        }, {
-          name: "Dead Bug",
-          sets: "3×10 je Seite",
-          weeks: [],
-          note: "Rumpfstabilität"
         }]
       }
     }
@@ -1016,7 +666,7 @@ const nutrition = {
     }, {
       time: "11:30",
       name: "Pre-Workout Snack",
-      items: ["Vollkornbrot 1 Scheibe + körniger Frischkäse", "½ Avocado mit Tomaten", "Prise Salz + Pfeffer"],
+      items: ["Vollkornbrot 1 Scheibe + körniger Frischkäse", "½ Avocado mit Tomaten"],
       kcal: 290,
       mfp: "Vollkornbrot, Frischkäse körnig, Avocado"
     }, {
@@ -1024,54 +674,54 @@ const nutrition = {
       name: "Post-Workout Mittagessen",
       items: ["Hähnchenbrust 200g ODER veganes Mühlenhof-Hack 180g", "Reis 60–70g roh (→ ~180–210g gekocht)", "Tomaten-Gurken-Salat + Olivenöl"],
       kcal: 680,
-      mfp: "Hähnchenbrust/Veggie-Hack, Reis ROH eintragen!"
+      mfp: "Hähnchen/Veggie-Hack, Reis ROH eintragen!"
     }, {
       time: "16:30",
       name: "Snack",
       items: ["Buttermilch 250ml", "Vollkornbrot 1 Scheibe + körniger Frischkäse 60g", "2 Tomaten"],
       kcal: 270,
-      mfp: "Buttermilch, Vollkornbrot, Frischkäse körnig"
+      mfp: "Buttermilch, Vollkornbrot, Frischkäse"
     }, {
       time: "19:30",
       name: "Abendessen (KH reduziert)",
-      items: ["Hähnchenschenkel 200g ODER Tofu 200g angebraten", "Süßkartoffel 150g", "großer Blattsalat + Olivenöl + Zitrone", "Optional: Parmigiano 15g (✅ okay)"],
+      items: ["Hähnchenschenkel 200g ODER Tofu 200g", "Süßkartoffel 150g", "großer Blattsalat + Olivenöl"],
       kcal: 520,
       mfp: "Hähnchen/Tofu, Süßkartoffel, Salat"
     }]
   },
-  liss: {
-    label: "🏃 LISS-Tag (Di/Fr)",
-    kcal: 2000,
+  fussball: {
+    label: "⚽ Fußball-Tag",
+    kcal: 2300,
     meals: [{
-      time: "07:00",
-      name: "Vor LISS (leicht!)",
-      items: ["½ Banane ODER 2 Reiswaffeln + Honig", "schwarzer Kaffee"],
-      kcal: 100,
-      mfp: "Banane/Reiswaffeln"
+      time: "07:30",
+      name: "Frühstück",
+      items: ["Vollkornbrot 2 Scheiben + körniger Frischkäse 60g", "2 Tomaten", "1 Ei (hartgekocht)", "Kaffee mit Hafermilch"],
+      kcal: 500,
+      mfp: "Vollkornbrot, Frischkäse, Ei"
     }, {
-      time: "08:30",
-      name: "Post-LISS Frühstück",
-      items: ["Haferflocken 70g + Hafermilch 200ml", "1 Ei (hartgekocht)", "Beeren 80g ODER ½ Banane", "Whey 30g ESN"],
-      kcal: 560,
-      mfp: "Haferflocken, Hafermilch, Ei, Whey"
+      time: "12:30",
+      name: "Mittagessen (KH laden!)",
+      items: ["Nudeln 100g roh (Vollkorn)", "Hähnchen-Tomatensoße ODER veganes Hack", "Parmigiano 20g"],
+      kcal: 750,
+      mfp: "Vollkornnudeln ROH, Hähnchen/Veggie-Hack"
     }, {
-      time: "13:00",
-      name: "Mittagessen",
-      items: ["Hähnchenbrust 180g ODER Tofu 200g", "Reis 60g roh ODER Quinoa 70g", "Brokkoli + Paprika gedünstet"],
-      kcal: 540,
-      mfp: "Hähnchen/Tofu, Reis roh, Gemüse"
+      time: "16:30",
+      name: "Pre-Training Snack",
+      items: ["Banane", "Reiswaffeln 3 Stk. + Honig", "Buttermilch 150ml ODER Whey 20g"],
+      kcal: 310,
+      mfp: "Banane, Reiswaffeln, Buttermilch"
     }, {
-      time: "16:00",
-      name: "Snack",
-      items: ["Buttermilch 200ml", "Vollkornbrot 1 Scheibe + körniger Frischkäse 50g", "1 Tomate"],
-      kcal: 230,
-      mfp: "Buttermilch, Vollkornbrot, Frischkäse"
+      time: "18:30",
+      name: "Direkt vor Training",
+      items: ["½ Banane", "250ml Wasser/Iso"],
+      kcal: 110,
+      mfp: "Banane"
     }, {
-      time: "19:00",
-      name: "Abendessen (KH-arm)",
-      items: ["Rührei 3 Eier + 1 Eiweiß in Schuss Hafermilch", "Vollkornbrot 1 Scheibe", "Salat: Tomaten, Gurke, Avocado ½, Olivenöl", "Optional: Feta 30g (✅ okay)", "+ Quark 50g extra (Post-LISS Protein)"],
-      kcal: 570,
-      mfp: "Eier, Vollkornbrot, Avocado, Feta, Quark"
+      time: "21:00",
+      name: "Post-Training Abendessen",
+      items: ["Veggie-Schnitzel 2 Stk. ODER Hähnchen 180g", "Kartoffeln 250g", "Tomaten-Avocado-Salat"],
+      kcal: 600,
+      mfp: "Hähnchen/Veggie, Kartoffeln, Avocado"
     }]
   },
   ruhetag: {
@@ -1092,50 +742,15 @@ const nutrition = {
     }, {
       time: "15:30",
       name: "Snack",
-      items: ["Buttermilch 200ml", "1 Tomate", "Vollkornbrot 1 Scheibe + körniger Frischkäse"],
+      items: ["Buttermilch 200ml", "Vollkornbrot 1 Scheibe + körniger Frischkäse", "1 Tomate"],
       kcal: 230,
       mfp: "Buttermilch, Vollkornbrot, Frischkäse"
     }, {
       time: "19:00",
       name: "Abendessen (protein-reich, KH-arm)",
-      items: ["Rührei 3 Eier in Schuss Hafermilch", "großer Salat: Tomaten, Gurke, Avocado ½", "Olivenöl-Zitronendressing", "Optional: Feta 30g"],
+      items: ["Rührei 3 Eier in Schuss Hafermilch", "großer Salat: Tomaten, Gurke, Avocado ½", "Optional: Feta 30g"],
       kcal: 480,
       mfp: "Eier, Hafermilch, Avocado, Feta"
-    }]
-  },
-  fussball: {
-    label: "⚽ Fußball-Tag",
-    kcal: 2300,
-    meals: [{
-      time: "07:30",
-      name: "Frühstück",
-      items: ["Vollkornbrot 2 Scheiben + körniger Frischkäse 60g", "2 Tomaten in Scheiben", "1 Ei (hartgekocht)", "Kaffee mit Hafermilch"],
-      kcal: 500,
-      mfp: "Vollkornbrot, Frischkäse, Ei"
-    }, {
-      time: "12:30",
-      name: "Mittagessen (KH laden!)",
-      items: ["Nudeln 100g roh (Vollkorn wenn möglich)", "Hähnchen-Tomatensoße ODER veganes Hack-Bolognese", "Parmigiano 20g"],
-      kcal: 750,
-      mfp: "Vollkornnudeln ROH eintragen, Hähnchen/Veggie-Hack"
-    }, {
-      time: "16:30",
-      name: "Pre-Training Snack",
-      items: ["Banane", "Reiswaffeln 3 Stk. + Honig 1 TL", "Buttermilch 150ml ODER Whey 20g in Wasser"],
-      kcal: 310,
-      mfp: "Banane, Reiswaffeln, Buttermilch"
-    }, {
-      time: "18:30",
-      name: "Direkt vor Training",
-      items: ["½ Banane", "250ml Wasser oder Iso-Drink"],
-      kcal: 110,
-      mfp: "Banane"
-    }, {
-      time: "21:00",
-      name: "Post-Training Abendessen",
-      items: ["Veggie-Schnitzelchen 2 Stk. ODER Hähnchen 180g", "Kartoffeln 250g (Pellkartoffeln)", "Tomaten-Avocado-Salat"],
-      kcal: 600,
-      mfp: "Veggie-Schnitzel/Hähnchen, Kartoffeln, Avocado"
     }]
   },
   spielvortag: {
@@ -1144,15 +759,15 @@ const nutrition = {
     meals: [{
       time: "08:00",
       name: "Frühstück",
-      items: ["Haferflocken 100g + Hafermilch 250ml", "Beeren 80g ODER ½ Banane", "Vollkornbrot 1 Scheibe + Honig", "1 Ei (hartgekocht)", "Whey 30g ESN"],
+      items: ["Haferflocken 100g + Hafermilch 250ml", "Beeren 80g ODER ½ Banane", "Vollkornbrot 1 Scheibe + Honig", "1 Ei", "Whey 30g ESN"],
       kcal: 820,
-      mfp: "Haferflocken, Hafermilch, Vollkornbrot, Ei, Whey"
+      mfp: "Haferflocken, Hafermilch, Brot, Ei, Whey"
     }, {
       time: "12:30",
-      name: "⚡ Carb-Loading Mittagessen",
+      name: "⚡ Carb-Loading Mittag",
       items: ["Spaghetti 100g roh (Vollkorn)", "Hähnchen-Tomatensoße ODER veganes Hack", "Parmigiano 20g"],
       kcal: 860,
-      mfp: "Vollkornspaghetti ROH, Hähnchen/Veggie-Hack"
+      mfp: "Vollkornspaghetti ROH, Hähnchen/Veggie"
     }, {
       time: "15:30",
       name: "Snack",
@@ -1162,7 +777,7 @@ const nutrition = {
     }, {
       time: "18:30",
       name: "⚡ Haupt-Carb-Loading",
-      items: ["Nudeln 130g roh ODER Kartoffeln 350g", "Hähnchen 180g gegrillt", "Karottensalat mit Olivenöl", "Vollkornbrot 1 Scheibe"],
+      items: ["Nudeln 130g roh ODER Kartoffeln 350g", "Hähnchen 180g gegrillt", "Karottensalat + Olivenöl"],
       kcal: 900,
       mfp: "Nudeln ROH/Kartoffeln, Hähnchen"
     }, {
@@ -1179,9 +794,9 @@ const nutrition = {
     meals: [{
       time: "08:00",
       name: "⭐ Frühstück (4–5h vor Anstoß)",
-      items: ["Haferflocken 100g + Hafermilch 250ml", "Beeren 80g ODER ½ Banane", "Vollkornbrot 2 Scheiben + Honig", "1 Ei (hartgekocht)", "Orangensaft 200ml"],
+      items: ["Haferflocken 100g + Hafermilch 250ml", "Beeren 80g ODER ½ Banane", "Vollkornbrot 2 Scheiben + Honig", "1 Ei", "Orangensaft 200ml"],
       kcal: 850,
-      mfp: "Haferflocken, Hafermilch, Vollkornbrot, Ei, OJ"
+      mfp: "Haferflocken, Hafermilch, Brot, Ei, OJ"
     }, {
       time: "11:00",
       name: "Snack (2h vor Anstoß)",
@@ -1207,103 +822,22 @@ const nutrition = {
       kcal: 730,
       mfp: "Hähnchen/Veggie, Nudeln ROH/Kartoffeln"
     }]
-  },
-  aufbau: {
-    label: "✨ Aufbau (15.–16. Juli)",
-    kcal: 2800,
-    meals: [{
-      time: "08:00",
-      name: "Frühstück",
-      items: ["Haferflocken 100g + Hafermilch 300ml", "Beeren 80g ODER ½ Banane", "Vollkornbrot 1 Scheibe + Honig", "1 Ei (hartgekocht)", "Whey 30g ESN"],
-      kcal: 840,
-      mfp: "Haferflocken, Hafermilch, Vollkornbrot, Ei, Whey"
-    }, {
-      time: "11:00",
-      name: "Snack",
-      items: ["Vollkornbrot 2 Scheiben + körniger Frischkäse 60g", "2 Tomaten", "Buttermilch 200ml"],
-      kcal: 360,
-      mfp: "Vollkornbrot, Frischkäse, Buttermilch"
-    }, {
-      time: "13:30",
-      name: "Mittagessen – Carb-Loading",
-      items: ["Nudeln 130g roh ODER Kartoffeln 350g", "Hähnchen 180g gegrillt", "Tomaten-Gurken-Salat", "Parmigiano 15g"],
-      kcal: 860,
-      mfp: "Nudeln ROH/Kartoffeln, Hähnchen"
-    }, {
-      time: "16:30",
-      name: "Snack",
-      items: ["Reiswaffeln 4 Stk. + Honig", "Banane", "Whey 20g ESN in Hafermilch"],
-      kcal: 350,
-      mfp: "Reiswaffeln, Banane, Whey"
-    }, {
-      time: "19:30",
-      name: "Abendessen (leicht!)",
-      items: ["Hähnchenbrust 160g", "Reis 60g roh", "Salatbeilage – kein Rohkost (Blähungen!)"],
-      kcal: 420,
-      mfp: "Hähnchen, Reis ROH, Salat"
-    }]
   }
 };
-const lissInfo = {
-  title: "🏃 LISS – Was ist das?",
-  beschreibung: "Low Intensity Steady State – gleichmäßiges Ausdauertraining bei niedriger Intensität. Kein Sprint, kein Intervall. Der Körper greift bei niedriger Intensität direkt auf Fettreserven zurück.",
-  ziele: ["Fettverbrennung aktivieren", "Grundlagenausdauer erhalten für Vorbereitung", "Adduktoren schonen – kein explosiver Belastungswechsel", "Aktive Regeneration nach Gym-Tagen"],
-  ausfuehrung: ["Dauer: 35–45 Minuten", "Gerät: Fahrrad, Schwimmen oder Ellipsentrainer – kein Laufen (Adduktoren!)", "Tempo: Du kannst dich dabei normal unterhalten"],
-  appleWatch: {
-    zone: "Zone 2 (grün)",
-    bpm: "115–135 BPM",
-    beschreibung: "Workout-App → Radfahren/Schwimmen → HF im Blick behalten"
-  },
-  whoop: {
-    strain: "Strain 8–11",
-    recovery: {
-      gruen: "🟢 Grün (67–100%) → LISS wie geplant, 35–45 Min.",
-      gelb: "🟡 Gelb (34–66%) → LISS kürzer, 25 Min. reichen",
-      rot: "🔴 Rot (0–33%) → Nur Spazieren, kein strukturiertes Cardio"
-    },
-    beschreibung: "Whoop Recovery morgens checken bevor du trainierst!"
-  }
-};
-const laufProgramm = {
-  intro: "Eigenständiges Programm@Home vom Trainer – absolvieren im Zeitraum 23.06. – 06.07. (14 Tage vor Trainingsauftakt 07.07.). Insgesamt 4 Läufe.",
-  laeufe: [{
-    nr: "1",
-    datum: "Di 23.06.",
-    titel: "Dauerlauf",
-    distanz: "6 km",
-    details: ["6 Kilometer Dauerlauf", "Lockeres, gleichmäßiges Tempo", "Zone 2 – du kannst dich noch unterhalten"],
-    intensitaet: "locker",
-    adduktor: false,
-    tipp: "Unkritisch für Adduktoren – lockeres Tempo. Gut zum Grundlage aufbauen."
+const cheatDay = {
+  title: "🍕 Cheat-Day",
+  subtitle: "1× pro Woche – Sonntag empfohlen",
+  options: [{
+    name: "Pizza",
+    detail: "Margarita oder Salami"
   }, {
-    nr: "2",
-    datum: "Fr 26.06.",
-    titel: "Intervall lang",
-    distanz: "3 × 3000 m (9 km gesamt)",
-    details: ["3 × 3000 Meter mit möglichst hohem Tempo", "Ausreichend Pause zwischen den Läufen", "Insgesamt 9 Kilometer"],
-    intensitaet: "hoch",
-    adduktor: true,
-    tipp: "⚠️ ADDUKTOREN: Vorher 10 Min. gründlich aufwärmen + Hüft-Mobility. Bei Schmerz über 4/10 SOFORT stoppen!"
+    name: "Hähnchen-Döner",
+    detail: "Bevorzugt – mehr Protein"
   }, {
-    nr: "3",
-    datum: "Di 30.06.",
-    titel: "Intervall kurz",
-    distanz: "7 × 1000 m",
-    details: ["7 × 1000 Meter mit möglichst hohem Tempo", "Ziel: jede 1000m in 4:00 Min. oder schneller", "3:xx-Zeit ist top!", "Max. 5 Min. Pause zwischen den Läufen"],
-    intensitaet: "hoch",
-    adduktor: true,
-    tipp: "⚠️ ADDUKTOREN: Höchste Belastung im Programm! Sehr gut aufwärmen, Tempo bei Schmerz reduzieren. Lieber 4:10 sauber als mit Schmerz 3:50."
-  }, {
-    nr: "4",
-    datum: "Fr 03.07. ODER So 05.07.",
-    titel: "Dauerlauf",
-    distanz: "4 km",
-    details: ["4 Kilometer Dauerlauf", "Lockeres Tempo", "Option A: Fr 03.07. vor dem Turnier", "Option B: So 05.07."],
-    intensitaet: "locker",
-    adduktor: false,
-    tipp: "Lockerer Abschluss. Unkritisch für Adduktoren. Flexibel zwischen beiden Terminen wählbar."
+    name: "Sushi 🍣",
+    detail: "Max. 1×/Woche"
   }],
-  hinweis: "Gym bleibt Mo/Mi. Läufe ersetzen in diesem Zeitraum teilweise die LISS-Einheiten. Zwischen den Läufen genug Erholung einplanen."
+  note: "Kein schlechtes Gewissen – einplanen, genießen, danach wieder konsequent."
 };
 const recipes = {
   schnell: [{
@@ -1312,196 +846,187 @@ const recipes = {
     kcal: "~420 kcal",
     protein: "18g",
     zutaten: ["Vollkornbrot 2 Scheiben", "½ Avocado", "2 Tomaten", "1 Ei (Spiegelei)", "Salz, Pfeffer, Chiliflocken", "Optional: Mozzarella light 50g"],
-    zubereitung: ["Brot toasten", "Avocado zerdrücken, auf Toast streichen", "Tomaten in Scheiben drauflegen", "Spiegelei braten, obendrauf", "Würzen – fertig!"],
-    tipp: "In MFP: Vollkornbrot + Avocado + Ei eingeben.",
-    tags: ["Frühstück", "Schnell", "Vegetarisch"]
+    zubereitung: ["Brot toasten", "Avocado zerdrücken, aufstreichen", "Tomaten in Scheiben drauflegen", "Spiegelei braten, obendrauf", "Würzen – fertig!"],
+    tipp: "MFP: Vollkornbrot + Avocado + Ei eingeben.",
+    tags: ["Schnell", "Veggie"]
   }, {
     name: "Buttermilch-Protein-Bowl",
     time: "5 Min.",
     kcal: "~380 kcal",
     protein: "36g",
     zutaten: ["Buttermilch 250ml", "Whey 30g ESN Vanille", "Haferflocken 40g", "Beeren 80g ODER ½ Banane", "1 TL Honig", "Mandeln 10g"],
-    zubereitung: ["Whey in Buttermilch einrühren", "Haferflocken dazugeben, 3 Min. quellen lassen", "Beeren/Banane + Mandeln + Honig drauf"],
-    tipp: "Kein Kochen nötig. Super als schnelles Frühstück oder Pre-Workout.",
-    tags: ["Frühstück", "Schnell", "5 Min.", "Protein"]
+    zubereitung: ["Whey in Buttermilch einrühren", "Haferflocken dazu, 3 Min. quellen", "Beeren + Mandeln + Honig drauf"],
+    tipp: "Kein Kochen nötig.",
+    tags: ["Schnell", "Veggie"]
   }, {
     name: "Tomaten-Mozzarella light auf Vollkornbrot",
     time: "5 Min.",
     kcal: "~310 kcal",
     protein: "20g",
-    zutaten: ["Vollkornbrot 2 Scheiben", "Mozzarella light 80g", "3 Tomaten", "Olivenöl 1 TL", "Basilikum optional", "Meersalz, schwarzer Pfeffer"],
-    zubereitung: ["Brot belegen", "Mozzarella in Scheiben legen", "Tomaten drüber", "Olivenöl, Salz, Pfeffer – fertig"],
-    tipp: "Mozzarella light spart ~60 kcal vs. normal bei gleichem Protein.",
-    tags: ["Snack", "Vegetarisch", "5 Min."]
+    zutaten: ["Vollkornbrot 2 Scheiben", "Mozzarella light 80g", "3 Tomaten", "Olivenöl 1 TL", "Basilikum", "Meersalz, Pfeffer"],
+    zubereitung: ["Brot belegen", "Mozzarella in Scheiben legen", "Tomaten drüber", "Olivenöl, Salz, Pfeffer"],
+    tipp: "Mozzarella light spart ~60 kcal.",
+    tags: ["Schnell", "Veggie"]
   }, {
     name: "Veganes Hack-Wrap",
     time: "15 Min.",
     kcal: "~520 kcal",
     protein: "34g",
-    zutaten: ["Veganes Mühlenhof-Hack 150g", "Vollkorn-Tortilla 1 Stk.", "Tomaten 2 Stk. gewürfelt", "½ Avocado", "Körniger Frischkäse 50g", "Paprikapulver, Kreuzkümmel, Knoblauch"],
-    zubereitung: ["Hack mit Gewürzen anbraten (5 Min.)", "Tortilla kurz erwärmen", "Frischkäse auf Tortilla streichen", "Hack, Tomaten, Avocado drauf", "Einrollen – fertig!"],
-    tipp: "Veganes Hack hat ähnlich viel Protein wie Fleisch!",
-    tags: ["Mittagessen", "Vegan", "Schnell"]
+    zutaten: ["Veganes Mühlenhof-Hack 150g", "Vollkorn-Tortilla 1 Stk.", "Tomaten 2 gewürfelt", "½ Avocado", "Körniger Frischkäse 50g", "Paprikapulver, Kreuzkümmel, Knoblauch"],
+    zubereitung: ["Hack mit Gewürzen anbraten (5 Min.)", "Tortilla erwärmen", "Frischkäse aufstreichen", "Hack, Tomaten, Avocado drauf", "Einrollen"],
+    tipp: "Veganes Hack = viel Protein.",
+    tags: ["Schnell", "Vegan"]
   }, {
     name: "Hähnchen-Tomaten-Pfanne mit Reis",
     time: "20 Min.",
     kcal: "~620 kcal",
     protein: "52g",
-    zutaten: ["Hähnchenbrust 200g", "Reis 65g roh", "Tomaten 3 Stk. gewürfelt", "Knoblauch 2 Zehen", "Olivenöl 1 EL", "Paprika, Salz, Pfeffer, Oregano"],
-    zubereitung: ["Reis kochen (15 Min.)", "Hähnchen würfeln, in Olivenöl anbraten (5 Min.)", "Knoblauch + Tomaten dazu, 5 Min. schmoren", "Würzen – auf Reis anrichten"],
-    tipp: "Reis immer ROH abwiegen und roh in MFP eintragen!",
-    tags: ["Mittagessen", "Post-Workout", "Schnell"]
+    zutaten: ["Hähnchenbrust 200g", "Reis 65g roh", "Tomaten 3 gewürfelt", "Knoblauch 2 Zehen", "Olivenöl 1 EL", "Paprika, Salz, Pfeffer, Oregano"],
+    zubereitung: ["Reis kochen (15 Min.)", "Hähnchen würfeln, anbraten (5 Min.)", "Knoblauch + Tomaten dazu, 5 Min. schmoren", "Würzen, auf Reis anrichten"],
+    tipp: "Reis ROH abwiegen!",
+    tags: ["Schnell"]
   }, {
     name: "Udon mit Erdnuss-Soja-Sauce & Hähnchen",
     time: "15 Min.",
     kcal: "~580 kcal",
     protein: "44g",
-    zutaten: ["Udon Nudeln 200g (gekocht)", "Hähnchenbrust 180g", "Erdnussbutter 1 EL (15g – nicht mehr!)", "Sojasoße / Tamari 2 EL", "Limettensaft 1 EL", "Knoblauch 1 Zehe", "Ingwer", "Frühlingszwiebeln optional"],
-    zubereitung: ["Hähnchen in Streifen braten (5 Min.)", "Sauce: Erdnussbutter + Soja + Limette + Knoblauch + etwas Wasser", "Udon kurz in Pfanne erwärmen", "Alles zusammen schwenken", "Frühlingszwiebeln drauf"],
-    tipp: "⚠️ Ideal für Fußball- oder Trainingstage. Erdnussbutter auf 1 EL begrenzen – kalorienreich!",
-    tags: ["Mittagessen", "Fußballtag", "Schnell"]
+    zutaten: ["Udon 200g (gekocht)", "Hähnchenbrust 180g", "Erdnussbutter 1 EL (15g)", "Sojasoße 2 EL", "Limettensaft 1 EL", "Knoblauch 1 Zehe", "Ingwer", "Frühlingszwiebeln"],
+    zubereitung: ["Hähnchen in Streifen braten", "Sauce: Erdnussbutter + Soja + Limette + Wasser", "Udon erwärmen", "Alles schwenken", "Frühlingszwiebeln drauf"],
+    tipp: "⚠️ Ideal für Fußball-/Trainingstage. Erdnussbutter max. 1 EL!",
+    tags: ["Schnell"]
+  }, {
+    name: "Shakshuka-Style Eier in Tomatensauce (schnell)",
+    time: "12 Min.",
+    kcal: "~360 kcal",
+    protein: "24g",
+    zutaten: ["3 Eier", "Passierte Tomaten 200g", "Zwiebel ½", "Knoblauch 1 Zehe", "Paprikapulver, Kreuzkümmel, Chili", "Vollkornbrot 1 Scheibe"],
+    zubereitung: ["Zwiebel + Knoblauch kurz anbraten", "Passierte Tomaten + Gewürze rein, 3 Min. köcheln", "Eier reinschlagen, Deckel drauf", "3–4 Min. bis Eiweiß fest", "Mit Brot servieren"],
+    tipp: "Schnelle Protein-Mahlzeit, viel Volumen für wenig kcal.",
+    tags: ["Schnell", "Veggie"]
+  }, {
+    name: "Magerquark-Bowl herzhaft",
+    time: "5 Min.",
+    kcal: "~300 kcal",
+    protein: "32g",
+    zutaten: ["Magerquark 250g", "Schuss Hafermilch", "Gurke ½ gewürfelt", "Tomaten 2", "Schnittlauch", "Salz, Pfeffer", "Optional: Leinsamen 1 TL"],
+    zubereitung: ["Quark mit Hafermilch cremig rühren", "Gemüse würfeln", "Unterheben, würzen", "Leinsamen drüber"],
+    tipp: "Perfekt bei Heißhunger – sättigt lange durch Protein + Volumen.",
+    tags: ["Schnell", "Veggie"]
   }],
   wochenende: [{
     name: "Shakshuka mit Vollkornbrot",
     time: "25 Min.",
     kcal: "~480 kcal",
     protein: "26g",
-    zutaten: ["Eier 3 Stk.", "Dosentomaten 400g", "Paprika 1 rote", "Zwiebel 1", "Knoblauch 2 Zehen", "Olivenöl 1 EL", "Kreuzkümmel, Paprika, Chili", "Vollkornbrot 2 Scheiben", "Optional: Feta 30g"],
-    zubereitung: ["Zwiebel + Paprika in Olivenöl anbraten (5 Min.)", "Knoblauch + Gewürze dazu", "Tomaten dazugeben, 10 Min. köcheln", "Mulden machen, Eier reinschlagen, Deckel drauf", "4–5 Min. pochieren", "Feta drüber, mit Brot servieren"],
-    tipp: "Perfektes Wochenend-Frühstück.",
-    tags: ["Frühstück", "Wochenende", "Vegetarisch"]
-  }, {
-    name: "Hähnchen-Avocado auf Vollkornbrot",
-    time: "10 Min.",
-    kcal: "~460 kcal",
-    protein: "38g",
-    zutaten: ["Vollkornbrot 2 Scheiben", "Hähnchenbrust gekocht 150g", "½ Avocado", "2 Tomaten", "Körniger Frischkäse 40g", "Zitronensaft, Salz, Pfeffer", "Chiliflocken optional"],
-    zubereitung: ["Brot toasten", "Frischkäse aufstreichen", "Avocado in Scheiben drauf", "Hähnchen in Streifen drauflegen", "Tomaten + Zitrone + Würzung – fertig"],
-    tipp: "Hähnchen vom Vortag? Perfekt zum Verwerten!",
-    tags: ["Frühstück", "Wochenende", "Protein"]
+    zutaten: ["3 Eier", "Dosentomaten 400g", "Paprika 1 rote", "Zwiebel 1", "Knoblauch 2 Zehen", "Olivenöl 1 EL", "Kreuzkümmel, Paprika, Chili", "Vollkornbrot 2 Scheiben", "Optional: Feta 30g"],
+    zubereitung: ["Zwiebel + Paprika anbraten (5 Min.)", "Knoblauch + Gewürze dazu", "Tomaten rein, 10 Min. köcheln", "Mulden formen, Eier reinschlagen", "Deckel drauf, 4–5 Min. pochieren", "Feta drüber, mit Brot servieren"],
+    tipp: "Klassisches Wochenend-Frühstück.",
+    tags: ["Wochenende", "Veggie"]
   }, {
     name: "Hähnchen-Bowl mit Avocado & Reis",
     time: "30 Min.",
     kcal: "~680 kcal",
     protein: "54g",
     zutaten: ["Hähnchenbrust 220g", "Reis 70g roh", "Avocado 1", "Tomaten 2", "Körniger Frischkäse 50g", "Limette, Olivenöl, Koriander", "Salz, Pfeffer, Paprika"],
-    zubereitung: ["Reis kochen", "Hähnchen würzen, in Pfanne oder Ofen (20 Min./200°)", "Bowl aufbauen: Reis → Hähnchen → Avocado + Tomaten", "Frischkäse drauf, Limette drüber", "Olivenöl + Koriander als Dressing"],
-    tipp: "Meal-Prep-geeignet! 3 Portionen auf einmal, 3 Tage im Kühlschrank.",
-    tags: ["Mittagessen", "Meal Prep", "Wochenende"]
+    zubereitung: ["Reis kochen", "Hähnchen würzen, in Pfanne/Ofen (20 Min./200°)", "Bowl: Reis → Hähnchen → Avocado + Tomaten", "Frischkäse drauf, Limette drüber", "Olivenöl + Koriander als Dressing"],
+    tipp: "Meal-Prep: 3 Portionen, 3 Tage haltbar.",
+    tags: ["Wochenende"]
   }, {
     name: "Udon mit Tofu & Erdnuss-Soja-Sauce",
     time: "20 Min.",
     kcal: "~510 kcal",
     protein: "30g",
-    zutaten: ["Udon Nudeln 200g (gekocht)", "Tofu fest 200g", "Erdnussbutter 1 EL (15g)", "Sojasoße / Tamari 2 EL", "Limettensaft 1 EL", "Sesamöl 1 TL", "Knoblauch, Ingwer", "Pak Choi oder Brokkoli 150g", "Hefeflocken 1 EL optional"],
-    zubereitung: ["Tofu würfeln, in Sesamöl knusprig braten (8 Min.)", "Gemüse dazu, 3 Min. anbraten", "Sauce: Erdnussbutter + Soja + Limette + etwas Wasser", "Udon + Sauce in Pfanne schwenken", "Hefeflocken drüber – fertig"],
-    tipp: "⚠️ Fußballtag empfohlen für die KH. Erdnussbutter auf 1 EL halten!",
-    tags: ["Abendessen", "Vegan", "Wochenende", "Fußballtag"]
+    zutaten: ["Udon 200g (gekocht)", "Tofu fest 200g", "Erdnussbutter 1 EL", "Sojasoße 2 EL", "Limettensaft 1 EL", "Sesamöl 1 TL", "Knoblauch, Ingwer", "Pak Choi oder Brokkoli 150g", "Hefeflocken 1 EL"],
+    zubereitung: ["Tofu würfeln, in Sesamöl knusprig braten (8 Min.)", "Gemüse dazu, 3 Min.", "Sauce: Erdnussbutter + Soja + Limette + Wasser", "Udon + Sauce schwenken", "Hefeflocken drüber"],
+    tipp: "⚠️ Fußballtag empfohlen. Erdnussbutter max. 1 EL.",
+    tags: ["Wochenende", "Vegan"]
   }, {
     name: "Protein-Pfannkuchen",
     time: "20 Min.",
     kcal: "~550 kcal",
     protein: "42g",
-    zutaten: ["Haferflocken 80g (gemixt zu Mehl)", "Whey 30g ESN Vanille", "3 Eier", "Hafermilch 100ml", "½ Banane zerdrückt", "Backpulver ½ TL", "Kokosöl zum Braten", "Topping: Beeren + Joghurt + Honig"],
-    zubereitung: ["Haferflocken im Mixer zu Mehl", "Alle Zutaten verrühren", "Kleine Pfannkuchen in Kokosöl braten (2 Min. je Seite)", "Mit Beeren, Joghurt, Honig servieren"],
-    tipp: "Whey gut im Teig integrierbar.",
-    tags: ["Frühstück", "Wochenende", "Protein"]
+    zutaten: ["Haferflocken 80g (gemixt)", "Whey 30g ESN Vanille", "3 Eier", "Hafermilch 100ml", "½ Banane zerdrückt", "Backpulver ½ TL", "Kokosöl", "Topping: Beeren + Joghurt + Honig"],
+    zubereitung: ["Haferflocken zu Mehl mixen", "Alle Zutaten verrühren", "Kleine Pfannkuchen in Kokosöl braten (2 Min./Seite)", "Mit Beeren, Joghurt, Honig servieren"],
+    tipp: "Süß & proteinreich.",
+    tags: ["Wochenende", "Veggie"]
   }, {
     name: "Veggie-Hack Bolognese",
     time: "30 Min.",
     kcal: "~640 kcal",
     protein: "42g",
-    zutaten: ["Veganes Mühlenhof-Hack 200g", "Vollkornnudeln 90g roh", "Dosentomaten 400g", "Tomaten 2 frische", "Paprika 1 (rot oder gelb) gewürfelt", "Zwiebel 1, Knoblauch 3 Zehen", "Olivenöl 1 EL", "Oregano, Basilikum, Salz, Pfeffer", "Parmigiano 20g (✅ okay)"],
-    zubereitung: ["Zwiebel + Paprika + Knoblauch in Olivenöl anbraten (5–7 Min.)", "Veggie-Hack dazu, 5 Min. braten", "Tomaten (Dose + frisch) + Gewürze rein", "20 Min. köcheln", "Nudeln al dente kochen (ROH abwiegen!), Parmesan drüber"],
-    tipp: "Nudeln immer ROH abwiegen – 90g roh = ~200g gekocht.",
-    tags: ["Abendessen", "Vegan", "Pasta", "Wochenende"]
+    zutaten: ["Veganes Mühlenhof-Hack 200g", "Vollkornnudeln 90g roh", "Dosentomaten 400g", "Tomaten 2 frische", "Paprika 1 gewürfelt", "Zwiebel 1, Knoblauch 3 Zehen", "Olivenöl 1 EL", "Oregano, Basilikum, Salz, Pfeffer", "Parmigiano 20g"],
+    zubereitung: ["Zwiebel + Paprika + Knoblauch anbraten (5–7 Min.)", "Veggie-Hack dazu, 5 Min. braten", "Tomaten (Dose + frisch) + Gewürze", "20 Min. köcheln", "Nudeln al dente (ROH abwiegen!), Parmesan drüber"],
+    tipp: "Nudeln ROH abwiegen – 90g roh ≈ 200g gekocht.",
+    tags: ["Wochenende", "Vegan"]
+  }, {
+    name: "Ofen-Hähnchen mit Süßkartoffel & Gemüse",
+    time: "40 Min.",
+    kcal: "~620 kcal",
+    protein: "50g",
+    zutaten: ["Hähnchenbrust 220g", "Süßkartoffel 250g", "Brokkoli 150g", "Paprika 1", "Olivenöl 1,5 EL", "Paprikapulver, Knoblauchpulver, Rosmarin", "Salz, Pfeffer"],
+    zubereitung: ["Ofen auf 200° vorheizen", "Süßkartoffel + Gemüse würfeln, mit Öl + Gewürzen mischen", "Auf Blech verteilen, 15 Min. vorbacken", "Hähnchen würzen, dazulegen", "Weitere 20 Min. backen bis Hähnchen durch"],
+    tipp: "Ein Blech, kaum Aufwand, ideal zum Vorbereiten.",
+    tags: ["Wochenende"]
+  }, {
+    name: "Rührei-Wrap mit Gemüse",
+    time: "15 Min.",
+    kcal: "~470 kcal",
+    protein: "32g",
+    zutaten: ["3 Eier", "Vollkorn-Tortilla 1", "Paprika ½", "Tomaten 1", "Spinat 1 Handvoll", "Körniger Frischkäse 40g", "Salz, Pfeffer, Chili"],
+    zubereitung: ["Gemüse klein schneiden, kurz anbraten", "Verquirlte Eier dazu, stocken lassen", "Frischkäse auf Tortilla streichen", "Rührei + Gemüse drauf", "Einrollen"],
+    tipp: "Schnell, sättigend, gut mitzunehmen.",
+    tags: ["Wochenende", "Veggie"]
+  }, {
+    name: "Linsen-Dal mit Reis",
+    time: "35 Min.",
+    kcal: "~560 kcal",
+    protein: "26g",
+    zutaten: ["Rote Linsen 100g roh", "Reis 60g roh", "Dosentomaten 200g", "Zwiebel 1, Knoblauch 2 Zehen", "Ingwer", "Kurkuma, Kreuzkümmel, Currypulver", "Kokosmilch light 100ml", "Olivenöl 1 EL", "Spinat 1 Handvoll"],
+    zubereitung: ["Zwiebel, Knoblauch, Ingwer anbraten", "Gewürze dazu, kurz rösten", "Linsen + Tomaten + 300ml Wasser, 20 Min. köcheln", "Kokosmilch + Spinat unterrühren", "Reis parallel kochen, zusammen servieren"],
+    tipp: "Ballaststoffreich & sättigt lange – gut gegen Heißhunger.",
+    tags: ["Wochenende", "Vegan"]
+  }, {
+    name: "Gefüllte Paprika mit Hackfüllung",
+    time: "45 Min.",
+    kcal: "~520 kcal",
+    protein: "40g",
+    zutaten: ["Paprika 3 Stk.", "Hähnchen- oder veganes Hack 250g", "Reis 60g roh", "Dosentomaten 200g", "Zwiebel 1, Knoblauch 2 Zehen", "Paprikapulver, Oregano", "Optional: Feta 40g", "Salz, Pfeffer"],
+    zubereitung: ["Ofen 190° vorheizen", "Reis halb garkochen", "Hack mit Zwiebel + Knoblauch anbraten", "Reis + halbe Tomatensauce + Gewürze mischen", "Paprika halbieren, entkernen, füllen", "Rest-Sauce drüber, Feta drauf, 30 Min. backen"],
+    tipp: "Meal-Prep-tauglich, gut aufzuwärmen.",
+    tags: ["Wochenende"]
+  }, {
+    name: "Overnight Oats mit Skyr & Beeren",
+    time: "5 Min. (+ Nacht)",
+    kcal: "~450 kcal",
+    protein: "38g",
+    zutaten: ["Haferflocken 60g", "Skyr 200g", "Hafermilch 100ml", "Whey 20g ESN", "Beeren 100g", "Chiasamen 1 TL", "Honig 1 TL"],
+    zubereitung: ["Haferflocken + Skyr + Hafermilch + Whey + Chia verrühren", "Über Nacht in den Kühlschrank", "Morgens Beeren + Honig drauf"],
+    tipp: "Abends vorbereiten – morgens sofort fertig. Sättigt lange.",
+    tags: ["Wochenende", "Veggie"]
+  }, {
+    name: "Süßkartoffel-Curry mit Kichererbsen",
+    time: "35 Min.",
+    kcal: "~540 kcal",
+    protein: "20g",
+    zutaten: ["Süßkartoffel 250g", "Kichererbsen 1 Dose (240g)", "Dosentomaten 200g", "Kokosmilch light 100ml", "Zwiebel 1, Knoblauch 2 Zehen", "Ingwer, Currypulver, Kurkuma", "Spinat 1 Handvoll", "Reis 60g roh"],
+    zubereitung: ["Zwiebel, Knoblauch, Ingwer anbraten", "Gewürze rösten", "Süßkartoffel-Würfel + Tomaten + 200ml Wasser, 15 Min.", "Kichererbsen + Kokosmilch, 10 Min. köcheln", "Spinat unterrühren, mit Reis servieren"],
+    tipp: "Vegan, ballaststoffreich, wärmt gut auf.",
+    tags: ["Wochenende", "Vegan"]
   }]
 };
-const cheatDay = {
-  title: "🍕 Cheat-Day",
-  subtitle: "1× pro Woche – Sonntag empfohlen",
-  options: [{
-    name: "Pizza",
-    detail: "Margarita oder Salami – genießen!"
-  }, {
-    name: "Hähnchen-Döner",
-    detail: "Bevorzugt – mehr Protein"
-  }, {
-    name: "Sushi 🍣",
-    detail: "Max. 1×/Woche als Bonus"
-  }],
-  note: "Kein schlechtes Gewissen – einplanen, genießen, danach wieder konsequent."
-};
-const adductorWarnings = [{
-  ok: false,
-  text: "Adduktoren-Maschine (direkter Zug auf Leiste)"
-}, {
-  ok: false,
-  text: "Tiefe Ausfallschritte mit weitem Schritt"
-}, {
-  ok: false,
-  text: "Kniebeugen im Sumo-Stil"
-}, {
-  ok: false,
-  text: "Seitwärtsbewegungen unter Gewichtsbelastung"
-}, {
-  ok: false,
-  text: "Laufsprint mit starken Richtungswechseln (Phase 1)"
-}, {
-  ok: true,
-  text: "Kniebeugen schulterbreit – kontrollierte Tiefe"
-}, {
-  ok: true,
-  text: "Hüftheben mit engen Füßen"
-}, {
-  ok: true,
-  text: "Tägliche Dehnung: Schmetterling, Innenschenkel"
-}, {
-  ok: true,
-  text: "5 Min. Hüft-Mobility vor jedem Training"
-}];
-const dailyRoutine = [{
-  name: "Schmetterlingspose liegend",
-  sets: "2 Min.",
-  note: "Füße zusammen, Knie fallen lassen"
-}, {
-  name: "Seitl. Ausfallschritt (eng!)",
-  sets: "2×10",
-  note: "Kleiner Schritt, leichte Dehnung"
-}, {
-  name: "Hüftkreise",
-  sets: "2×10 je Seite",
-  note: "Hüftgelenk mobilisieren"
-}, {
-  name: "Copenhagen Plank",
-  sets: "3×20s je Seite",
-  note: "Adduktoren STÄRKEN – Knie auf Stuhl"
-}, {
-  name: "Innenschenkel-Dehnung stehend",
-  sets: "2×30s je Seite",
-  note: "Fuß auf Stuhl, aufrecht bleiben"
-}];
 function SommerPlan() {
-  const [activePhase, setActivePhase] = useState("phase1");
-  const [activeTab, setActiveTab] = useState("uebersicht");
-  const [activeGymDay, setActiveGymDay] = useState("montag");
+  const [activeTab, setActiveTab] = useState("gym");
+  const [splitMode, setSplitMode] = useState("pushpull");
+  const [gymDay, setGymDay] = useState("a");
+  const [gymLength, setGymLength] = useState("voll");
   const [activeNutrition, setActiveNutrition] = useState("gymtag");
   const [recipeFilter, setRecipeFilter] = useState("alle");
-  const [lissOpen, setLissOpen] = useState(false);
-  const phase = phases.find(p => p.id === activePhase);
-  const ac = phase.accentColor;
+  const split = gymSplits[splitMode];
+  const tag = split.tage[gymDay];
+  const exercises = gymLength === "voll" ? tag.voll : tag.kurz;
+  const dac = tag.accentColor;
   const allRecipes = [...recipes.schnell, ...recipes.wochenende];
-  const filteredRecipes = recipeFilter === "alle" ? allRecipes : recipeFilter === "schnell" ? recipes.schnell : recipeFilter === "wochenende" ? recipes.wochenende : allRecipes.filter(r => r.tags.some(t => t.toLowerCase().includes(recipeFilter)));
-  const typeIcon = {
-    gym: "💪",
-    fussball: "⚽",
-    cardio: "🏃",
-    rest: "😴",
-    special: "🍺",
-    phase: "📅",
-    aufbau: "✨",
-    wedding: "💍"
-  };
+  const filteredRecipes = recipeFilter === "alle" ? allRecipes : recipeFilter === "schnell" ? recipes.schnell : recipeFilter === "wochenende" ? recipes.wochenende : allRecipes.filter(r => r.tags.some(t => t.toLowerCase() === recipeFilter));
   return /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: "'Barlow Condensed',sans-serif",
@@ -1516,12 +1041,11 @@ function SommerPlan() {
         .btn:hover{opacity:.85;}
         .card-h{transition:transform .15s;}
         .card-h:hover{transform:translateX(3px);}
-        .ex-row:hover{background:rgba(255,255,255,.04)!important;}
         ::-webkit-scrollbar{width:4px;height:4px;}
         ::-webkit-scrollbar-thumb{background:#30363d;border-radius:2px;}
       `), /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "linear-gradient(135deg,#1a0a2e,#0d1117)",
+      background: "linear-gradient(135deg,#2a0a1e,#0d1117)",
       borderBottom: "1px solid #21262d",
       padding: "16px 18px 12px"
     }
@@ -1544,40 +1068,25 @@ function SommerPlan() {
       fontWeight: 800,
       color: "#f0f6fc"
     }
-  }, "SOMMERPLAN 2025"), /*#__PURE__*/React.createElement("span", {
+  }, "TRAININGSPLAN"), /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: 10,
       fontWeight: 600,
-      background: "#4ade8022",
-      color: "#4ade80",
-      border: "1px solid #4ade8044",
+      background: "#ec489922",
+      color: "#ec4899",
+      border: "1px solid #ec489944",
       borderRadius: 4,
       padding: "2px 7px",
       letterSpacing: 1.5
     }
-  }, "\uD83D\uDC8D 17. JULI RHEINE"), /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontSize: 10,
-      fontWeight: 600,
-      background: "#a78bfa22",
-      color: "#a78bfa",
-      border: "1px solid #a78bfa44",
-      borderRadius: 4,
-      padding: "2px 7px",
-      letterSpacing: 1.5
-    }
-  }, "\uD83C\uDDEE\uD83C\uDDF9 1. AUG ITALIEN")), /*#__PURE__*/React.createElement("div", {
+  }, "⚽ LIGABETRIEB")), /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: "'Barlow'",
       fontSize: 12,
       color: "#8b949e",
       marginTop: 3
     }
-  }, "83 kg \xB7 182 cm \xB7 28 J \xA0\xB7\xA0 Gym Mo+Mi (13\u201314 Uhr) \xA0\xB7\xA0 Letztes Training: ", /*#__PURE__*/React.createElement("strong", {
-    style: {
-      color: "#f97316"
-    }
-  }, "14. Juli"), " \xA0\xB7\xA0 \u26A0\uFE0F Adduktoren"), /*#__PURE__*/React.createElement("div", {
+  }, "83 kg · 182 cm · Gym 2×/Woche (Mo+Mi, Homeoffice) · Fußball Di/Do 19:00 · So Spieltag"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       alignItems: "center",
@@ -1589,43 +1098,7 @@ function SommerPlan() {
       overflowX: "auto",
       gap: 0
     }
-  }, [{
-    l: "Mannschaftsfahrt",
-    d: "04.–07.06.",
-    c: "#eab308"
-  }, {
-    l: "Phase 1",
-    d: "09. Juni",
-    c: "#f97316"
-  }, {
-    l: "Phase 2",
-    d: "23. Juni",
-    c: "#eab308"
-  }, {
-    l: "⚽ Vorb.",
-    d: "07. Juli",
-    c: "#4ade80"
-  }, {
-    l: "Phase 3",
-    d: "07. Juli",
-    c: "#a78bfa"
-  }, {
-    l: "🛑 Letztes Gym",
-    d: "14. Juli",
-    c: "#f87171"
-  }, {
-    l: "Aufbau",
-    d: "15.–16.",
-    c: "#38bdf8"
-  }, {
-    l: "💍 Rheine",
-    d: "17. Juli",
-    c: "#4ade80"
-  }, {
-    l: "🇮🇹 Italien",
-    d: "1. Aug",
-    c: "#a78bfa"
-  }].map((item, i, arr) => /*#__PURE__*/React.createElement("div", {
+  }, wochenstruktur.map((d, i, arr) => /*#__PURE__*/React.createElement("div", {
     key: i,
     style: {
       display: "flex",
@@ -1635,119 +1108,24 @@ function SommerPlan() {
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       textAlign: "center",
-      minWidth: 44
+      minWidth: 52
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: "'Barlow Condensed'",
       fontWeight: 700,
-      fontSize: 10,
-      color: item.c
+      fontSize: 13,
+      color: d.color
     }
-  }, item.l), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow'",
-      fontSize: 9,
-      color: "#6e7681"
-    }
-  }, item.d)), i < arr.length - 1 && /*#__PURE__*/React.createElement("div", {
+  }, d.day)), i < arr.length - 1 && /*#__PURE__*/React.createElement("div", {
     style: {
       flex: 1,
       height: 1,
       background: "#30363d",
-      margin: "0 2px",
-      minWidth: 4
+      margin: "0 3px",
+      minWidth: 6
     }
   })))))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: "#161b22",
-      borderBottom: "1px solid #21262d",
-      padding: "10px 18px"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      maxWidth: 760,
-      margin: "0 auto",
-      display: "flex",
-      gap: 6,
-      overflowX: "auto",
-      paddingBottom: 2
-    }
-  }, /*#__PURE__*/React.createElement("button", {
-    className: "btn",
-    onClick: () => setActiveTab("uebersicht"),
-    style: {
-      flex: "1 0 auto",
-      minWidth: 70,
-      padding: "8px 8px",
-      borderRadius: 8,
-      border: activeTab === "uebersicht" ? "1.5px solid #f0f6fc" : "1.5px solid #21262d",
-      background: activeTab === "uebersicht" ? "#f0f6fc18" : "#0d1117",
-      color: activeTab === "uebersicht" ? "#f0f6fc" : "#8b949e",
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 13,
-      cursor: "pointer"
-    }
-  }, /*#__PURE__*/React.createElement("div", null, "\uD83D\uDCCB \xDCbersicht"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 10,
-      opacity: .8,
-      whiteSpace: "nowrap"
-    }
-  }, "Komplett")), phases.map(p => /*#__PURE__*/React.createElement("button", {
-    key: p.id,
-    className: "btn",
-    onClick: () => {
-      setActivePhase(p.id);
-      if (activeTab === "uebersicht") setActiveTab("phase");
-    },
-    style: {
-      flex: "1 0 auto",
-      minWidth: 70,
-      padding: "8px 8px",
-      borderRadius: 8,
-      border: activePhase === p.id && activeTab !== "uebersicht" ? `1.5px solid ${p.accentColor}` : "1.5px solid #21262d",
-      background: activePhase === p.id && activeTab !== "uebersicht" ? `${p.accentColor}18` : "#0d1117",
-      color: activePhase === p.id && activeTab !== "uebersicht" ? p.accentColor : "#8b949e",
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 13,
-      cursor: "pointer"
-    }
-  }, /*#__PURE__*/React.createElement("div", null, p.label), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 10,
-      opacity: .8,
-      whiteSpace: "nowrap"
-    }
-  }, p.subtitle))), /*#__PURE__*/React.createElement("button", {
-    className: "btn",
-    onClick: () => {
-      setActivePhase("phase3");
-      setActiveTab("ernaehrung");
-      setActiveNutrition("aufbau");
-    },
-    style: {
-      flex: "1 0 auto",
-      minWidth: 70,
-      padding: "8px 8px",
-      borderRadius: 8,
-      border: "1.5px solid #38bdf840",
-      background: "#38bdf810",
-      color: "#38bdf8",
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 13,
-      cursor: "pointer"
-    }
-  }, /*#__PURE__*/React.createElement("div", null, "Aufbau"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 10,
-      opacity: .8,
-      whiteSpace: "nowrap"
-    }
-  }, "15.\u201316. Juli")))), /*#__PURE__*/React.createElement("div", {
     style: {
       background: "#0d1117",
       borderBottom: "1px solid #21262d",
@@ -1761,713 +1139,165 @@ function SommerPlan() {
       display: "flex"
     }
   }, [{
-    id: "phase",
-    label: "📅 Phase"
-  }, {
     id: "gym",
     label: "💪 Gym"
-  }, {
-    id: "laufe",
-    label: "🏃 Läufe"
   }, {
     id: "ernaehrung",
     label: "🍽 Ernährung"
   }, {
     id: "rezepte",
     label: "👨‍🍳 Rezepte"
-  }, {
-    id: "adduktoren",
-    label: "⚠️ Adduktoren"
-  }].map(tab => /*#__PURE__*/React.createElement("button", {
-    key: tab.id,
+  }].map(t => /*#__PURE__*/React.createElement("button", {
+    key: t.id,
     className: "btn",
-    onClick: () => setActiveTab(tab.id),
+    onClick: () => setActiveTab(t.id),
     style: {
-      padding: "11px 12px",
+      padding: "12px 16px",
       border: "none",
-      borderBottom: activeTab === tab.id ? `2px solid ${ac}` : "2px solid transparent",
+      borderBottom: activeTab === t.id ? `2px solid ${AC}` : "2px solid transparent",
       background: "transparent",
-      color: activeTab === tab.id ? ac : "#8b949e",
+      color: activeTab === t.id ? AC : "#8b949e",
       fontFamily: "'Barlow Condensed'",
       fontWeight: 700,
-      fontSize: 13,
+      fontSize: 14,
       cursor: "pointer",
       whiteSpace: "nowrap"
     }
-  }, tab.label)))), /*#__PURE__*/React.createElement("div", {
+  }, t.label)))), /*#__PURE__*/React.createElement("div", {
     style: {
       maxWidth: 760,
       margin: "0 auto",
       padding: "16px 16px 60px"
     }
-  }, activeTab === "uebersicht" && /*#__PURE__*/React.createElement("div", {
+  }, activeTab === "gym" && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     style: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 12
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: "#161b22",
-      border: "1px solid #21262d",
-      borderRadius: 12,
-      padding: "14px 16px"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 14,
-      color: "#8b949e",
-      marginBottom: 10,
-      letterSpacing: 1
-    }
-  }, "\uD83D\uDDD3 KOMPLETTE TIMELINE"), timeline.map((d, i) => /*#__PURE__*/React.createElement("div", {
-    key: i,
-    style: {
-      display: "flex",
-      gap: 10,
-      marginBottom: 7,
-      alignItems: "flex-start"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 12,
-      color: d.color,
-      minWidth: 78,
-      flexShrink: 0
-    }
-  }, d.date), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow'",
-      fontSize: 12,
-      color: "#8b949e",
-      minWidth: 22,
-      flexShrink: 0
-    }
-  }, d.day), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow'",
-      fontSize: 13,
-      color: "#c9d1d9"
-    }
-  }, typeIcon[d.type], " ", d.event)))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: "#0d1b2a",
-      border: "1px solid #1d4ed840",
-      borderRadius: 10,
-      padding: "11px 14px",
-      fontFamily: "'Barlow'",
-      fontSize: 12.5,
-      color: "#60a5fa"
-    }
-  }, "\u2139\uFE0F Tippe oben auf \"\uD83D\uDCC5 Phase\" f\xFCr die Details der aktuell gew\xE4hlten Phase (Fokus, Cardio, Wochenstruktur)."), /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: "#161b22",
-      border: `1px solid ${lissOpen ? "#38bdf840" : "#21262d"}`,
-      borderRadius: 12,
-      overflow: "hidden"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    onClick: () => setLissOpen(!lissOpen),
-    style: {
-      padding: "14px 16px",
-      cursor: "pointer",
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center"
-    }
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 15,
-      color: "#38bdf8"
-    }
-  }, lissInfo.title), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow'",
-      fontSize: 12,
-      color: "#8b949e",
-      marginTop: 2
-    }
-  }, "\"2\xD7 LISS pro Woche (Di/Fr) in der Sommerpause \xB7 35\u201345 Min.\"")), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontSize: 13,
-      color: "#8b949e"
-    }
-  }, lissOpen ? "▲" : "▼")), lissOpen && /*#__PURE__*/React.createElement("div", {
-    style: {
-      borderTop: "1px solid #21262d",
-      padding: "12px 16px"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow'",
-      fontSize: 13,
-      color: "#c9d1d9",
-      marginBottom: 10,
-      lineHeight: 1.6
-    }
-  }, lissInfo.beschreibung), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 13,
-      color: "#38bdf8",
-      marginBottom: 6,
-      letterSpacing: 1
-    }
-  }, "ZIELE"), lissInfo.ziele.map((z, i) => /*#__PURE__*/React.createElement("div", {
-    key: i,
-    style: {
-      display: "flex",
-      gap: 7,
-      marginBottom: 4,
-      fontFamily: "'Barlow'",
-      fontSize: 12.5,
-      color: "#c9d1d9"
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "#38bdf8",
-      flexShrink: 0
-    }
-  }, "\u203A"), z)), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 13,
-      color: "#38bdf8",
-      marginBottom: 6,
-      marginTop: 10,
-      letterSpacing: 1
-    }
-  }, "AUSF\xDCHRUNG"), lissInfo.ausfuehrung.map((a, i) => /*#__PURE__*/React.createElement("div", {
-    key: i,
-    style: {
-      display: "flex",
-      gap: 7,
-      marginBottom: 4,
-      fontFamily: "'Barlow'",
-      fontSize: 12.5,
-      color: "#c9d1d9"
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: "#38bdf8",
-      flexShrink: 0
-    }
-  }, "\u203A"), a)), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      gap: 10,
-      marginTop: 12,
-      flexWrap: "wrap"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      flex: 1,
-      minWidth: 140,
-      background: "#0d1117",
-      border: "1px solid #21262d",
-      borderRadius: 8,
-      padding: "10px 12px"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 13,
-      color: "#f0f6fc",
-      marginBottom: 6
-    }
-  }, "\u231A Apple Watch"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 14,
-      color: "#4ade80"
-    }
-  }, lissInfo.appleWatch.zone), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 16,
-      color: "#f0f6fc",
-      marginTop: 2
-    }
-  }, lissInfo.appleWatch.bpm), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow'",
-      fontSize: 11.5,
-      color: "#8b949e",
-      marginTop: 4
-    }
-  }, lissInfo.appleWatch.beschreibung)), /*#__PURE__*/React.createElement("div", {
-    style: {
-      flex: 1,
-      minWidth: 140,
-      background: "#0d1117",
-      border: "1px solid #21262d",
-      borderRadius: 8,
-      padding: "10px 12px"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 13,
-      color: "#f0f6fc",
-      marginBottom: 6
-    }
-  }, "\uD83D\uDD34 Whoop"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 14,
-      color: "#a78bfa"
-    }
-  }, "Strain ", lissInfo.whoop.strain), /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginTop: 8
-    }
-  }, Object.values(lissInfo.whoop.recovery).map((r, i) => /*#__PURE__*/React.createElement("div", {
-    key: i,
-    style: {
-      fontFamily: "'Barlow'",
-      fontSize: 12,
-      color: "#c9d1d9",
-      marginBottom: 4
-    }
-  }, r))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow'",
-      fontSize: 11,
-      color: "#8b949e",
-      marginTop: 4
-    }
-  }, lissInfo.whoop.beschreibung)))))), activeTab === "phase" && /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 12
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: "#161b22",
-      border: "1px solid #21262d",
-      borderRadius: 12,
-      padding: "14px 16px"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 14,
-      color: ac,
-      marginBottom: 10,
-      letterSpacing: 1
-    }
-  }, "\uD83D\uDDD3 ", phase.label.toUpperCase(), " \u2013 TERMINE"), timeline.filter(d => d.phase === activePhase).map((d, i) => /*#__PURE__*/React.createElement("div", {
-    key: i,
-    style: {
-      display: "flex",
-      gap: 10,
-      marginBottom: 7,
-      alignItems: "flex-start"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 12,
-      color: d.color,
-      minWidth: 78,
-      flexShrink: 0
-    }
-  }, d.date), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow'",
-      fontSize: 12,
-      color: "#8b949e",
-      minWidth: 22,
-      flexShrink: 0
-    }
-  }, d.day), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow'",
-      fontSize: 13,
-      color: "#c9d1d9"
-    }
-  }, typeIcon[d.type], " ", d.event)))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: `${ac}10`,
-      border: `1px solid ${ac}30`,
-      borderRadius: 12,
-      padding: "14px 18px",
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      flexWrap: "wrap",
-      gap: 8
-    }
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 800,
-      fontSize: 20,
-      color: "#f0f6fc"
-    }
-  }, phase.label, " \u2013 ", phase.subtitle), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow'",
-      fontSize: 12,
-      color: "#8b949e",
-      marginTop: 3
-    }
-  }, phase.weeks, " \xB7 ", phase.duration)), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 22,
-      color: ac
-    }
-  }, phase.kcal, " kcal/Tag")), /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: "#161b22",
-      border: "1px solid #21262d",
-      borderRadius: 12,
-      padding: "14px 16px"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 15,
-      color: "#f0f6fc",
-      marginBottom: 8
-    }
-  }, "\uD83C\uDFAF Fokus"), phase.focus.map((f, i) => /*#__PURE__*/React.createElement("div", {
-    key: i,
-    style: {
-      display: "flex",
-      gap: 8,
-      marginBottom: 6,
-      fontFamily: "'Barlow'",
-      fontSize: 13,
-      color: "#c9d1d9"
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: ac,
-      flexShrink: 0
-    }
-  }, "\u203A"), f))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: "#161b22",
-      border: "1px solid #21262d",
-      borderRadius: 12,
-      padding: "14px 16px"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 15,
-      color: "#f0f6fc",
       marginBottom: 10
     }
-  }, "\uD83D\uDCC5 Wochenstruktur ", activePhase === "phase4" ? "(Ligabetrieb)" : "(Sommerpause)"), (activePhase === "phase4" ? [{
-    day: "Mo",
-    type: "GYM – Push (13–14 Uhr)",
-    color: "#4ade80"
-  }, {
-    day: "Di",
-    type: "Training 19:00–20:30",
-    color: "#ec4899"
-  }, {
-    day: "Mi",
-    type: "GYM – Pull (13–14 Uhr)",
-    color: "#38bdf8"
-  }, {
-    day: "Do",
-    type: "Training 19:00–20:30",
-    color: "#ec4899"
-  }, {
-    day: "Fr",
-    type: "Training 18:30 (1.+3. Fr/Monat)",
-    color: "#ec4899"
-  }, {
-    day: "Sa",
-    type: "Spielvortag / Aktiv",
-    color: "#8b949e"
-  }, {
-    day: "So",
-    type: "SPIELTAG 15:00 🏆",
-    color: "#ec4899"
-  }] : [{
-    day: "Mo",
-    type: "GYM – Push (13–14 Uhr)",
-    color: "#4ade80"
-  }, {
-    day: "Di",
-    type: "LISS 35–45 Min. (Fahrrad/Schwimmen)",
-    color: "#38bdf8"
-  }, {
-    day: "Mi",
-    type: "GYM – Pull (13–14 Uhr)",
-    color: "#38bdf8"
-  }, {
-    day: "Do",
-    type: "Regeneration + Adduktoren-Routine",
-    color: "#8b949e"
-  }, {
-    day: "Fr",
-    type: "LISS 35–45 Min.",
-    color: "#38bdf8"
-  }, {
-    day: "Sa",
-    type: "Aktiv / Spazieren",
-    color: "#8b949e"
-  }, {
-    day: "So",
-    type: "Erholung / Cheat-Day 🍕",
-    color: "#eab308"
-  }]).map((d, i) => /*#__PURE__*/React.createElement("div", {
-    key: i,
-    style: {
-      display: "flex",
-      gap: 10,
-      marginBottom: 6,
-      alignItems: "center"
-    }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: "'Barlow Condensed'",
       fontWeight: 700,
-      fontSize: 14,
-      color: d.color,
-      width: 22
+      fontSize: 12,
+      color: "#8b949e",
+      marginBottom: 6,
+      letterSpacing: 1
     }
-  }, d.day), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow'",
-      fontSize: 13,
-      color: "#c9d1d9"
-    }
-  }, d.type))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow'",
-      fontSize: 11.5,
-      color: "#f97316",
-      marginTop: 8,
-      borderTop: "1px solid #21262d",
-      paddingTop: 8,
-      fontWeight: 600
-    }
-  }, activePhase === "phase4" ? "Ligabetrieb ab 10.08.: Fußball deckt Ausdauer. Gym Mo+Mi für Kraft. Vor Spielen genug Regeneration!" : "Ab 7. Juli: Fußball Vorbereitung → Gym Mo+Mi bleibt wo möglich."))), activeTab === "gym" && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+  }, "SPLIT-VARIANTE"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
-      gap: 8,
-      marginBottom: 14
+      gap: 8
     }
-  }, ["montag", "mittwoch"].map(d => /*#__PURE__*/React.createElement("button", {
-    key: d,
+  }, Object.entries(gymSplits).map(([key, val]) => /*#__PURE__*/React.createElement("button", {
+    key: key,
     className: "btn",
-    onClick: () => setActiveGymDay(d),
+    onClick: () => {
+      setSplitMode(key);
+      setGymDay("a");
+    },
     style: {
       flex: 1,
-      padding: "10px 8px",
+      padding: "9px 8px",
       borderRadius: 8,
-      background: activeGymDay === d ? gymDays[d].accentColor : "#161b22",
-      color: activeGymDay === d ? "#0d1117" : "#8b949e",
-      border: `1px solid ${activeGymDay === d ? gymDays[d].accentColor : "#21262d"}`,
+      border: splitMode === key ? `1.5px solid ${AC}` : "1.5px solid #21262d",
+      background: splitMode === key ? `${AC}18` : "#161b22",
+      color: splitMode === key ? AC : "#8b949e",
       fontFamily: "'Barlow Condensed'",
       fontWeight: 700,
       fontSize: 14,
       cursor: "pointer"
     }
-  }, /*#__PURE__*/React.createElement("div", null, gymDays[d].label), /*#__PURE__*/React.createElement("div", {
+  }, val.label))), /*#__PURE__*/React.createElement("div", {
     style: {
-      fontSize: 11,
-      opacity: .8
+      fontFamily: "'Barlow'",
+      fontSize: 11.5,
+      color: "#8b949e",
+      marginTop: 6,
+      lineHeight: 1.5
     }
-  }, gymDays[d].subtitle)))), /*#__PURE__*/React.createElement("div", {
+  }, split.hinweis)), /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "#1a0a0a",
-      border: "1px solid #f8717130",
-      borderRadius: 10,
-      padding: "9px 13px",
-      marginBottom: 10
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 13,
-      color: "#f87171"
-    }
-  }, "\uD83D\uDED1 Letzter Trainingstag: Dienstag, 14. Juli (Push) + Testspiel abends")), /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: `${gymDays[activeGymDay].accentColor}10`,
-      border: `1px solid ${gymDays[activeGymDay].accentColor}30`,
-      borderRadius: 10,
-      padding: "9px 13px",
+      display: "flex",
+      gap: 8,
       marginBottom: 12
     }
-  }, /*#__PURE__*/React.createElement("div", {
+  }, ["a", "b"].map(d => /*#__PURE__*/React.createElement("button", {
+    key: d,
+    className: "btn",
+    onClick: () => setGymDay(d),
     style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 13,
-      color: gymDays[activeGymDay].accentColor
-    }
-  }, phase.label, " \xB7 ", gymDays[activeGymDay].phases[activePhase].note)), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 8
-    }
-  }, gymDays[activeGymDay].phases[activePhase].exercises.map((ex, i) => /*#__PURE__*/React.createElement(ExerciseCard, {
-    key: i,
-    ex: ex,
-    ac: gymDays[activeGymDay].accentColor
-  })))), activeTab === "laufe" && /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 12
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: "#0a1a2a",
-      border: "1px solid #38bdf840",
-      borderRadius: 12,
-      padding: "14px 16px"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 800,
-      fontSize: 18,
-      color: "#38bdf8",
-      marginBottom: 6
-    }
-  }, "\uD83C\uDFC3 Programm@Home \u2013 Trainer"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow'",
-      fontSize: 13,
-      color: "#c9d1d9",
-      lineHeight: 1.6
-    }
-  }, laufProgramm.intro)), laufProgramm.laeufe.map((lauf, i) => /*#__PURE__*/React.createElement("div", {
-    key: i,
-    style: {
-      background: "#161b22",
-      border: `1px solid ${lauf.adduktor ? "#f9731640" : "#21262d"}`,
-      borderLeft: `3px solid ${lauf.intensitaet === "hoch" ? "#f87171" : "#4ade80"}`,
-      borderRadius: "0 12px 12px 0",
-      padding: "14px 16px"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "flex-start",
-      marginBottom: 8
-    }
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 8
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 800,
-      fontSize: 18,
-      color: lauf.intensitaet === "hoch" ? "#f87171" : "#4ade80",
-      background: lauf.intensitaet === "hoch" ? "#f8717115" : "#4ade8015",
+      flex: 1,
+      padding: "9px 6px",
       borderRadius: 8,
-      width: 30,
-      height: 30,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center"
-    }
-  }, lauf.nr), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-    style: {
+      background: gymDay === d ? split.tage[d].accentColor : "#161b22",
+      color: gymDay === d ? "#0d1117" : "#8b949e",
+      border: `1px solid ${gymDay === d ? split.tage[d].accentColor : "#21262d"}`,
       fontFamily: "'Barlow Condensed'",
       fontWeight: 700,
-      fontSize: 16,
-      color: "#f0f6fc"
+      fontSize: 13,
+      cursor: "pointer"
     }
-  }, lauf.titel), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", null, split.tage[d].label), /*#__PURE__*/React.createElement("div", {
     style: {
-      fontFamily: "'Barlow'",
-      fontSize: 12,
-      color: "#8b949e"
+      fontSize: 10,
+      opacity: .8
     }
-  }, lauf.datum)))), /*#__PURE__*/React.createElement("div", {
+  }, split.tage[d].subtitle)))), /*#__PURE__*/React.createElement("div", {
     style: {
-      textAlign: "right"
+      display: "flex",
+      gap: 0,
+      marginBottom: 12,
+      borderRadius: 8,
+      overflow: "hidden",
+      border: "1px solid #21262d"
     }
-  }, /*#__PURE__*/React.createElement("div", {
+  }, [["voll", "🕐 Voll (60 Min)"], ["kurz", "⚡ Kurz (45 Min)"]].map(([key, label]) => /*#__PURE__*/React.createElement("button", {
+    key: key,
+    className: "btn",
+    onClick: () => setGymLength(key),
     style: {
+      flex: 1,
+      padding: "10px",
+      background: gymLength === key ? dac : "#161b22",
+      color: gymLength === key ? "#0d1117" : "#8b949e",
       fontFamily: "'Barlow Condensed'",
       fontWeight: 700,
       fontSize: 14,
-      color: "#38bdf8"
+      border: "none",
+      cursor: "pointer"
     }
-  }, lauf.distanz), /*#__PURE__*/React.createElement("div", {
+  }, label))), gymLength === "kurz" && /*#__PURE__*/React.createElement("div", {
     style: {
-      fontFamily: "'Barlow'",
-      fontSize: 11,
-      color: lauf.intensitaet === "hoch" ? "#f87171" : "#4ade80",
-      marginTop: 2
-    }
-  }, lauf.intensitaet === "hoch" ? "🔥 Tempo" : "🟢 Locker"))), lauf.details.map((d, j) => /*#__PURE__*/React.createElement("div", {
-    key: j,
-    style: {
-      display: "flex",
-      gap: 7,
-      marginBottom: 3,
-      fontFamily: "'Barlow'",
-      fontSize: 13,
-      color: "#c9d1d9"
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: lauf.intensitaet === "hoch" ? "#f87171" : "#4ade80",
-      flexShrink: 0
-    }
-  }, "\u203A"), d)), lauf.tipp && /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginTop: 8,
-      background: lauf.adduktor ? "#2a1a0a" : "#0d1b2a",
-      border: `1px solid ${lauf.adduktor ? "#f9731640" : "#1d4ed840"}`,
-      borderRadius: 8,
-      padding: "8px 12px",
-      fontFamily: "'Barlow'",
-      fontSize: 12,
-      color: lauf.adduktor ? "#fbbf24" : "#60a5fa"
-    }
-  }, lauf.adduktor ? "" : "💡 ", lauf.tipp))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: "#0d1b2a",
-      border: "1px solid #1d4ed840",
+      background: `${dac}10`,
+      border: `1px solid ${dac}30`,
       borderRadius: 10,
-      padding: "11px 14px",
+      padding: "9px 13px",
+      marginBottom: 12,
       fontFamily: "'Barlow'",
       fontSize: 12.5,
-      color: "#60a5fa"
+      color: dac
     }
-  }, "\u2139\uFE0F ", laufProgramm.hinweis)), activeTab === "ernaehrung" && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+  }, "⚡ Kurzversion für die Mittagspause: die 4–5 wichtigsten Übungen. Kürzere Pausen (60 Sek.), zügig durch."), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 8
+    }
+  }, exercises.map((ex, i) => /*#__PURE__*/React.createElement(ExerciseCard, {
+    key: i,
+    ex: ex,
+    ac: dac
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#2a1a0a",
+      border: "1px solid #f9731640",
+      borderRadius: 10,
+      padding: "11px 14px",
+      marginTop: 14,
+      fontFamily: "'Barlow'",
+      fontSize: 12,
+      color: "#fbbf24"
+    }
+  }, "⚠️ Adduktoren beachten (in deinen Trainingsplan integriert): keine Adduktoren-Maschine, kein weiter Stand unter Last, vor jedem Training 5 Min. Hüft-Mobility.")), activeTab === "ernaehrung" && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       gap: 6,
@@ -2483,62 +1313,18 @@ function SommerPlan() {
       flexShrink: 0,
       padding: "8px 10px",
       borderRadius: 8,
-      border: activeNutrition === key ? `1.5px solid ${key === "aufbau" ? "#38bdf8" : key === "liss" ? "#38bdf8" : ac}` : "1.5px solid #21262d",
-      background: activeNutrition === key ? `${key === "aufbau" || key === "liss" ? "#38bdf8" : ac}18` : "#161b22",
-      color: activeNutrition === key ? key === "aufbau" || key === "liss" ? "#38bdf8" : ac : "#8b949e",
+      border: activeNutrition === key ? `1.5px solid ${AC}` : "1.5px solid #21262d",
+      background: activeNutrition === key ? `${AC}18` : "#161b22",
+      color: activeNutrition === key ? AC : "#8b949e",
       fontFamily: "'Barlow Condensed'",
       fontWeight: 700,
       fontSize: 12,
       cursor: "pointer"
     }
-  }, val.label))), activeNutrition === "aufbau" && /*#__PURE__*/React.createElement("div", {
+  }, val.label))), /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "#0a1a2a",
-      border: "1px solid #38bdf840",
-      borderRadius: 10,
-      padding: "10px 14px",
-      marginBottom: 12
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 14,
-      color: "#38bdf8",
-      marginBottom: 4
-    }
-  }, "\u2728 Aufbau-Tage 15. & 16. Juli"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow'",
-      fontSize: 12,
-      color: "#8b949e"
-    }
-  }, "Kein Training! Carb-Loading, viel trinken, kein Alkohol, fr\xFCh schlafen.")), activeNutrition === "liss" && /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: "#0a1a2a",
-      border: "1px solid #38bdf840",
-      borderRadius: 10,
-      padding: "10px 14px",
-      marginBottom: 12
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 14,
-      color: "#38bdf8",
-      marginBottom: 4
-    }
-  }, "\uD83C\uDFC3 LISS-Tag (Dienstag + Freitag)"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow'",
-      fontSize: 12,
-      color: "#8b949e"
-    }
-  }, "~150 kcal mehr als Ruhetag. Vor LISS leicht essen, Post-LISS extra Quark f\xFCr Protein.")), activeNutrition !== "aufbau" && activeNutrition !== "liss" && /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: `${ac}10`,
-      border: `1px solid ${ac}25`,
+      background: `${AC}10`,
+      border: `1px solid ${AC}25`,
       borderRadius: 10,
       padding: "9px 14px",
       marginBottom: 12,
@@ -2552,16 +1338,12 @@ function SommerPlan() {
       fontSize: 12,
       color: "#c9d1d9"
     }
-  }, "Ziel (", phase.label, "): ", /*#__PURE__*/React.createElement("strong", {
-    style: {
-      color: ac
-    }
-  }, phase.kcal, " kcal")), /*#__PURE__*/React.createElement("div", {
+  }, "Ligabetrieb – Erhaltung/leichtes Defizit"), /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: "'Barlow Condensed'",
       fontWeight: 700,
       fontSize: 16,
-      color: ac
+      color: AC
     }
   }, "~", nutrition[activeNutrition].kcal, " kcal")), /*#__PURE__*/React.createElement("div", {
     style: {
@@ -2575,7 +1357,7 @@ function SommerPlan() {
     style: {
       background: "#161b22",
       border: "1px solid #21262d",
-      borderLeft: `3px solid ${activeNutrition === "aufbau" || activeNutrition === "liss" ? "#38bdf8" : ac}`,
+      borderLeft: `3px solid ${AC}`,
       borderRadius: "0 10px 10px 0",
       padding: "12px 14px"
     }
@@ -2599,14 +1381,14 @@ function SommerPlan() {
       fontSize: 11,
       color: "#8b949e"
     }
-  }, "\uD83D\uDD50 ", meal.time, " Uhr")), /*#__PURE__*/React.createElement("div", {
+  }, "🕐 ", meal.time, " Uhr")), /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: "'Barlow Condensed'",
       fontWeight: 700,
       fontSize: 14,
-      color: activeNutrition === "aufbau" || activeNutrition === "liss" ? "#38bdf8" : ac,
-      background: `${activeNutrition === "aufbau" || activeNutrition === "liss" ? "#38bdf8" : ac}15`,
-      border: `1px solid ${activeNutrition === "aufbau" || activeNutrition === "liss" ? "#38bdf8" : ac}25`,
+      color: AC,
+      background: `${AC}15`,
+      border: `1px solid ${AC}25`,
       borderRadius: 6,
       padding: "3px 8px"
     }
@@ -2622,10 +1404,10 @@ function SommerPlan() {
     }
   }, /*#__PURE__*/React.createElement("span", {
     style: {
-      color: activeNutrition === "aufbau" || activeNutrition === "liss" ? "#38bdf8" : ac,
+      color: AC,
       flexShrink: 0
     }
-  }, "\u203A"), item)), /*#__PURE__*/React.createElement("div", {
+  }, "›"), item)), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 7,
       fontFamily: "'Barlow'",
@@ -2634,7 +1416,7 @@ function SommerPlan() {
       borderTop: "1px solid #21262d",
       paddingTop: 5
     }
-  }, "\uD83D\uDCF1 MFP: ", meal.mfp))), /*#__PURE__*/React.createElement("div", {
+  }, "📱 MFP: ", meal.mfp))), /*#__PURE__*/React.createElement("div", {
     style: {
       background: "#1a1500",
       border: "1px solid #eab30840",
@@ -2705,7 +1487,7 @@ function SommerPlan() {
       color: "#60a5fa",
       marginBottom: 6
     }
-  }, "\uD83D\uDCA1 Ern\xE4hrungs-Regeln"), ["Protein mind. 160–170g/Tag – Whey 30g ESN täglich einplanen", "Reis & Nudeln IMMER ROH abwiegen und roh in MFP eintragen!", "Reis roh × 3 = gekocht · Nudeln roh × 2–2,2 = gekocht", "KH morgens & ums Training – abends reduzieren", "LISS-Tage: ~150 kcal mehr als Ruhetag (2.000 statt 1.850)", "Alkohol auf Minimum – letzte 2 Wochen vor Standesamt: null!"].map((t, i) => /*#__PURE__*/React.createElement("div", {
+  }, "💡 Regeln"), ["Protein 160–170g/Tag – Whey 30g ESN täglich", "Reis & Nudeln IMMER ROH abwiegen (Reis ×3, Nudeln ×2–2,2 = gekocht)", "Bei Heißhunger: Protein + Volumen (Quark, Gemüse) statt helle Nudeln", "KH ums Training, abends reduzieren", "Alkohol minimieren – verschlechtert Regeneration (Whoop!)"].map((t, i) => /*#__PURE__*/React.createElement("div", {
     key: i,
     style: {
       display: "flex",
@@ -2720,7 +1502,7 @@ function SommerPlan() {
       color: "#60a5fa",
       flexShrink: 0
     }
-  }, "\u203A"), t))))), activeTab === "rezepte" && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+  }, "›"), t))))), activeTab === "rezepte" && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       gap: 6,
@@ -2728,7 +1510,7 @@ function SommerPlan() {
       overflowX: "auto",
       paddingBottom: 2
     }
-  }, [["alle", "Alle"], ["schnell", "⚡ Schnell"], ["wochenende", "🌅 Wochenende"], ["vegan", "🥦 Vegan"], ["protein", "💪 Protein"], ["fußballtag", "⚽ Fußballtag"]].map(([key, label]) => /*#__PURE__*/React.createElement("button", {
+  }, [["alle", "Alle"], ["schnell", "⚡ Schnell"], ["wochenende", "🌅 Wochenende"], ["veggie", "🥦 Veggie"], ["vegan", "🌱 Vegan"]].map(([key, label]) => /*#__PURE__*/React.createElement("button", {
     key: key,
     className: "btn",
     onClick: () => setRecipeFilter(key),
@@ -2736,15 +1518,22 @@ function SommerPlan() {
       flexShrink: 0,
       padding: "7px 12px",
       borderRadius: 8,
-      border: recipeFilter === key ? `1.5px solid ${ac}` : "1.5px solid #21262d",
-      background: recipeFilter === key ? `${ac}18` : "#161b22",
-      color: recipeFilter === key ? ac : "#8b949e",
+      border: recipeFilter === key ? `1.5px solid ${AC}` : "1.5px solid #21262d",
+      background: recipeFilter === key ? `${AC}18` : "#161b22",
+      color: recipeFilter === key ? AC : "#8b949e",
       fontFamily: "'Barlow Condensed'",
       fontWeight: 700,
       fontSize: 13,
       cursor: "pointer"
     }
   }, label))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "'Barlow'",
+      fontSize: 12,
+      color: "#8b949e",
+      marginBottom: 12
+    }
+  }, filteredRecipes.length, " Rezepte · Tippe zum Aufklappen der Schritt-für-Schritt-Anleitung"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       flexDirection: "column",
@@ -2753,127 +1542,8 @@ function SommerPlan() {
   }, filteredRecipes.map((r, i) => /*#__PURE__*/React.createElement(RecipeCard, {
     key: i,
     recipe: r,
-    ac: ac
-  })), filteredRecipes.length === 0 && /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow'",
-      fontSize: 13,
-      color: "#8b949e",
-      textAlign: "center",
-      padding: 20
-    }
-  }, "Keine Rezepte f\xFCr diesen Filter."))), activeTab === "adduktoren" && /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 12
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: "#2a1a0a",
-      border: "1px solid #f9731640",
-      borderRadius: 12,
-      padding: "14px 16px"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 800,
-      fontSize: 18,
-      color: "#f97316",
-      marginBottom: 6
-    }
-  }, "\u26A0\uFE0F Adduktoren-Protokoll"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow'",
-      fontSize: 13,
-      color: "#c9d1d9",
-      lineHeight: 1.6
-    }
-  }, "Alle Gym\xFCbungen bereits angepasst. T\xE4gliche Routine nicht \xFCberspringen!")), /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: "#161b22",
-      border: "1px solid #21262d",
-      borderRadius: 12,
-      padding: "14px 16px"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 15,
-      color: "#f0f6fc",
-      marginBottom: 10
-    }
-  }, "Verbote & Empfehlungen"), adductorWarnings.map((w, i) => /*#__PURE__*/React.createElement("div", {
-    key: i,
-    style: {
-      display: "flex",
-      gap: 8,
-      marginBottom: 7,
-      fontFamily: "'Barlow'",
-      fontSize: 13,
-      color: w.ok ? "#86efac" : "#f87171"
-    }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      flexShrink: 0
-    }
-  }, w.ok ? "✅" : "❌"), w.text))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: "#161b22",
-      border: "1px solid #21262d",
-      borderRadius: 12,
-      padding: "14px 16px"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 15,
-      color: "#f0f6fc",
-      marginBottom: 10
-    }
-  }, "\uD83E\uDDD8 T\xE4gliche Routine (10 Min.)"), dailyRoutine.map((ex, i) => /*#__PURE__*/React.createElement("div", {
-    key: i,
-    style: {
-      background: "#0d1117",
-      border: "1px solid #21262d",
-      borderRadius: 8,
-      padding: "10px 12px",
-      marginBottom: 6,
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center"
-    }
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 14.5,
-      color: "#f0f6fc"
-    }
-  }, ex.name), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow'",
-      fontSize: 11.5,
-      color: "#8b949e",
-      marginTop: 2
-    }
-  }, ex.note)), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontFamily: "'Barlow Condensed'",
-      fontWeight: 700,
-      fontSize: 13,
-      color: "#4ade80",
-      background: "#4ade8015",
-      border: "1px solid #4ade8030",
-      borderRadius: 6,
-      padding: "2px 8px",
-      whiteSpace: "nowrap",
-      marginLeft: 10
-    }
-  }, ex.sets)))))));
+    ac: AC
+  }))))));
 }
 function ExerciseCard({
   ex,
@@ -2881,10 +1551,11 @@ function ExerciseCard({
 }) {
   const [open, setOpen] = useState(false);
   const hasWeeks = ex.weeks && ex.weeks.length > 0;
+  const warn = ex.note && ex.note.startsWith("⚠️");
   return /*#__PURE__*/React.createElement("div", {
     style: {
       background: "#161b22",
-      border: `1px solid ${open ? ac + "50" : "#21262d"}`,
+      border: `1px solid ${open ? ac + "50" : warn ? "#f9731640" : "#21262d"}`,
       borderRadius: 10,
       overflow: "hidden",
       transition: "border .2s"
@@ -2907,13 +1578,13 @@ function ExerciseCard({
       fontFamily: "'Barlow Condensed'",
       fontWeight: 700,
       fontSize: 15,
-      color: ex.note?.startsWith("⚠️") ? "#fbbf24" : "#f0f6fc"
+      color: warn ? "#fbbf24" : "#f0f6fc"
     }
   }, ex.name), ex.note && /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: "'Barlow'",
       fontSize: 11.5,
-      color: ex.note.startsWith("⚠️") ? "#fbbf24" : ex.note.startsWith("Optional") ? "#60a5fa" : "#8b949e",
+      color: warn ? "#fbbf24" : ex.note.startsWith("Optional") ? "#60a5fa" : "#8b949e",
       marginTop: 2
     }
   }, ex.note)), /*#__PURE__*/React.createElement("div", {
@@ -2977,7 +1648,7 @@ function ExerciseCard({
       color: ac,
       flexShrink: 0
     }
-  }, "\u203A"), row)))), /*#__PURE__*/React.createElement("div", {
+  }, "›"), row)))), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: 8,
       fontFamily: "'Barlow'",
@@ -2986,7 +1657,7 @@ function ExerciseCard({
       borderTop: "1px solid #21262d",
       paddingTop: 8
     }
-  }, "\uD83D\uDCA1 Progressive Overload: Wenn alle S\xE4tze sauber \u2192 n\xE4chste Woche +2,5kg oder +1\u20132 Reps")));
+  }, "💡 Progressive Overload: alle Sätze sauber → +2,5kg oder +1–2 Reps")));
 }
 function RecipeCard({
   recipe,
@@ -2994,19 +1665,10 @@ function RecipeCard({
 }) {
   const [open, setOpen] = useState(false);
   const tagColors = {
-    "Frühstück": "#f97316",
     "Schnell": "#38bdf8",
-    "Vegetarisch": "#4ade80",
-    "Vegan": "#4ade80",
-    "5 Min.": "#38bdf8",
     "Wochenende": "#a78bfa",
-    "Protein": "#eab308",
-    "Post-Workout": "#eab308",
-    "Mittagessen": "#f97316",
-    "Abendessen": "#818cf8",
-    "Meal Prep": "#38bdf8",
-    "Pasta": "#f97316",
-    "Fußballtag": "#818cf8"
+    "Veggie": "#4ade80",
+    "Vegan": "#22c55e"
   };
   return /*#__PURE__*/React.createElement("div", {
     style: {
@@ -3073,13 +1735,13 @@ function RecipeCard({
       fontSize: 11,
       color: "#8b949e"
     }
-  }, "\u23F1 ", recipe.time), /*#__PURE__*/React.createElement("div", {
+  }, "⏱ ", recipe.time), /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: "'Barlow Condensed'",
       fontSize: 12,
       color: "#4ade80"
     }
-  }, "\uD83D\uDCAA ", recipe.protein), /*#__PURE__*/React.createElement("div", {
+  }, "💪 ", recipe.protein), /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: "'Barlow Condensed'",
       fontSize: 11,
@@ -3127,7 +1789,7 @@ function RecipeCard({
       color: ac,
       flexShrink: 0
     }
-  }, "\u203A"), z))), /*#__PURE__*/React.createElement("div", {
+  }, "›"), z))), /*#__PURE__*/React.createElement("div", {
     style: {
       flex: 1,
       minWidth: 150
@@ -3141,7 +1803,7 @@ function RecipeCard({
       marginBottom: 6,
       letterSpacing: 1
     }
-  }, "ZUBEREITUNG"), recipe.zubereitung.map((s, i) => /*#__PURE__*/React.createElement("div", {
+  }, "SCHRITT FÜR SCHRITT"), recipe.zubereitung.map((s, i) => /*#__PURE__*/React.createElement("div", {
     key: i,
     style: {
       display: "flex",
@@ -3176,7 +1838,7 @@ function RecipeCard({
       fontSize: 12,
       color: ac
     }
-  }, "\uD83D\uDCA1 ", recipe.tipp)));
+  }, "💡 ", recipe.tipp)));
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(SommerPlan, null));
