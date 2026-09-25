@@ -653,6 +653,49 @@ const gymSplits = {
     }
   }
 };
+const rehaPlan = {
+  label: "🩹 Reha",
+  quelle: "JW Therapie – Instabilität unterer Rücken / Schambein",
+  hinweis: "Physiotherapeutisch verordnet – hat Vorrang! 2–3×/Woche, ~50 Min. Als eigener 3. Tag zusätzlich zu Gym Mo/Mi. Fokus: Becken-/Rumpfstabilität, kontrollierter Wiederaufbau der Beinkraft.",
+  aufwaermen: [{
+    name: "Cardio",
+    sets: "7 Min.",
+    note: "Fahrrad, Laufband, Stepper oder Ruderergometer"
+  }, {
+    name: "Mobilität Hüfte",
+    sets: "4 Min.",
+    note: "Beugung, Streckung, Rotation"
+  }, {
+    name: "Bein-Arbeit mit Mini-Band",
+    sets: "15× je Seite",
+    note: "Side-Steps + Hüftbeugung · Abduktion + Adduktion · Kniebeuge"
+  }],
+  kraeftigung: [{
+    name: "1. Squat (Langhantel)",
+    sets: "4×6",
+    note: "Stand · Becken aufrichten · Füße hüftbreit · Zehen nach außen · Fuß–Knie–Hüfte in einer Linie"
+  }, {
+    name: "2. Hip Thrust (1-Bein, Kettlebell/KH)",
+    sets: "4×6 je Seite",
+    note: "1-Bein Langsitz · Becken aufrichten · Füße hüftbreit · Fuß–Knie–Hüfte in Linie"
+  }, {
+    name: "3. Split Squat (KH)",
+    sets: "3×6 je Seite",
+    note: "1-Bein-Stand · Becken in Streckung, NICHT kippen · explosive Bewegung · Fuß–Knie–Hüfte in Linie"
+  }, {
+    name: "4. Beinstrecker (Kabelturm)",
+    sets: "4×6",
+    note: "Sitz · Fuß–Knie–Hüfte in Linie · vorderes Knie bleibt stehen, nicht vorschieben"
+  }, {
+    name: "5. Beinbeuger (Kabelturm)",
+    sets: "4×6 je Seite",
+    note: "Sitz/Bauchlage · Körper im Freeze-Modus, nur Unterschenkel bewegt sich"
+  }, {
+    name: "6. Wadenheben (Gerät/Zusatzgewicht)",
+    sets: "3×12",
+    note: "Sitz/Stand · Körper im Freeze-Modus, nur Unterschenkel bewegt sich"
+  }]
+};
 const nutrition = {
   gymtag: {
     label: "💪 Gym-Tag",
@@ -1021,7 +1064,7 @@ function SommerPlan() {
   const [gymLength, setGymLength] = useState("voll");
   const [activeNutrition, setActiveNutrition] = useState("gymtag");
   const [recipeFilter, setRecipeFilter] = useState("alle");
-  const split = gymSplits[splitMode];
+  const split = gymSplits[splitMode] || gymSplits.pushpull;
   const tag = split.tage[gymDay];
   const exercises = gymLength === "voll" ? tag.voll : tag.kurz;
   const dac = tag.accentColor;
@@ -1182,7 +1225,7 @@ function SommerPlan() {
       marginBottom: 6,
       letterSpacing: 1
     }
-  }, "SPLIT-VARIANTE"), /*#__PURE__*/React.createElement("div", {
+  }, "VARIANTE"), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       gap: 8
@@ -1206,7 +1249,22 @@ function SommerPlan() {
       fontSize: 14,
       cursor: "pointer"
     }
-  }, val.label))), /*#__PURE__*/React.createElement("div", {
+  }, val.label)), /*#__PURE__*/React.createElement("button", {
+    className: "btn",
+    onClick: () => setSplitMode("reha"),
+    style: {
+      flex: 1,
+      padding: "9px 8px",
+      borderRadius: 8,
+      border: splitMode === "reha" ? "1.5px solid #22c55e" : "1.5px solid #21262d",
+      background: splitMode === "reha" ? "#22c55e18" : "#161b22",
+      color: splitMode === "reha" ? "#22c55e" : "#8b949e",
+      fontFamily: "'Barlow Condensed'",
+      fontWeight: 700,
+      fontSize: 14,
+      cursor: "pointer"
+    }
+  }, rehaPlan.label)), /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: "'Barlow'",
       fontSize: 11.5,
@@ -1214,7 +1272,85 @@ function SommerPlan() {
       marginTop: 6,
       lineHeight: 1.5
     }
-  }, split.hinweis)), /*#__PURE__*/React.createElement("div", {
+  }, splitMode === "reha" ? rehaPlan.hinweis : split.hinweis)), splitMode === "reha" ? /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#0a1f12",
+      border: "1px solid #22c55e40",
+      borderRadius: 10,
+      padding: "10px 14px",
+      marginBottom: 12
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "'Barlow Condensed'",
+      fontWeight: 700,
+      fontSize: 13,
+      color: "#22c55e"
+    }
+  }, "🩹 ", rehaPlan.quelle), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "'Barlow'",
+      fontSize: 11.5,
+      color: "#8b949e",
+      marginTop: 2
+    }
+  }, "2–3× pro Woche · ~50 Min. · verordnet, hat Vorrang")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "'Barlow Condensed'",
+      fontWeight: 700,
+      fontSize: 13,
+      color: "#22c55e",
+      letterSpacing: 1,
+      marginBottom: 8
+    }
+  }, "AUFWÄRMEN (WuP)"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 8,
+      marginBottom: 16
+    }
+  }, rehaPlan.aufwaermen.map((ex, i) => /*#__PURE__*/React.createElement(ExerciseCard, {
+    key: i,
+    ex: {
+      ...ex,
+      weeks: []
+    },
+    ac: "#22c55e"
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "'Barlow Condensed'",
+      fontWeight: 700,
+      fontSize: 13,
+      color: "#22c55e",
+      letterSpacing: 1,
+      marginBottom: 8
+    }
+  }, "KRÄFTIGUNG"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 8
+    }
+  }, rehaPlan.kraeftigung.map((ex, i) => /*#__PURE__*/React.createElement(ExerciseCard, {
+    key: i,
+    ex: {
+      ...ex,
+      weeks: []
+    },
+    ac: "#22c55e"
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#0d1b2a",
+      border: "1px solid #1d4ed840",
+      borderRadius: 10,
+      padding: "11px 14px",
+      marginTop: 14,
+      fontFamily: "'Barlow'",
+      fontSize: 12,
+      color: "#60a5fa"
+    }
+  }, "💡 Roter Faden dieses Plans: „Fuß–Knie–Hüfte in einer Linie\" bei allen Übungen. Das ersetzt das reine Vermeiden – hier baust du die Stabilität kontrolliert wieder auf. Bei Schmerz über 4/10 stoppen.")) : /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       gap: 8,
@@ -1297,7 +1433,7 @@ function SommerPlan() {
       fontSize: 12,
       color: "#fbbf24"
     }
-  }, "⚠️ Adduktoren beachten (in deinen Trainingsplan integriert): keine Adduktoren-Maschine, kein weiter Stand unter Last, vor jedem Training 5 Min. Hüft-Mobility.")), activeTab === "ernaehrung" && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+  }, "⚠️ Adduktoren/Leiste: Der Reha-Plan (🩹) baut Beinkraft kontrolliert wieder auf – „Fuß–Knie–Hüfte in einer Linie\" statt weiter Stand. Kein Sumo-Stil, keine Adduktoren-Maschine."))), activeTab === "ernaehrung" && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       gap: 6,
